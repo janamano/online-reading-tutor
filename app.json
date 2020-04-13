@@ -1,0 +1,17 @@
+{
+  "name": "dyslexiaproj",
+  "displayName": "dyslexiaproj",
+  "expo": {
+    "name": "dyslexiaproj",
+    "slug": "dyslexiaproj",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
