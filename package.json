@@ -1,4 +1,6 @@
 {
+  "name": "online-reading-tutor",
+  "description": "helping to improve the reading experience for kids with dyslexia",
   "main": "index.js",
   "scripts": {
     "android": "react-native run-android",
