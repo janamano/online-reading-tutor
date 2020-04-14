@@ -1,22 +1,17 @@
 import * as React from 'react';
-import { Text, View, Button } from 'react-native';
+import { Text, View } from 'react-native';
 
-// import the global styles for the button 
-import globalStyles from "./../styles/global.js"
-
+// local components
+import Button from "./../components/Button"
 
 function GameScreen({ navigation }) {
     return (
         <View>
-            <Text
-                style={globalStyles.primaryBtn}
-            >Game before the lesson!</Text>
+            <Text>Game before the lesson!</Text>
             <Button
-                color="red"
-                style={globalStyles.primaryBtn}
-                title="Click here to go to individual lesson"
-                onPress={() => navigation.navigate('Lesson')}
-            ></Button>
+                text="individual lesson"
+                onPress={() => navigation.navigate('Lesson')}>
+            </Button>
         </View>
     );
 }
