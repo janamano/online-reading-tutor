@@ -28,11 +28,12 @@ sudo gem install cocoapods
 
 ## Quick Start
 
-Clone the repo and navigate to the directory. Run yarn to install the node_modules folder.
+First fork the repo. Go to your fork of the project and clone it.
+Navigate into the directory. Run yarn to install the node_modules folder.
 
 
 ```sh
-git clone https://github.com/Dyslexia-Done/online-reading-tutor.git
+git clone https://github.com/<yourusername>/online-reading-tutor.git
 cd online-reading-tutor
 yarn
 ```

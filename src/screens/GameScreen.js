@@ -1,17 +1,20 @@
 import * as React from 'react';
-import { Text, View, Button } from 'react-native';
+import { Text, View } from 'react-native';
 
+// local components
+import Button from "./../components/Button"
 
 function GameScreen({ navigation }) {
     return (
         <View>
             <Text>Game before the lesson!</Text>
-            <Button title="Click here to play a minigame"
+            <Button text="Click here to play a minigame"
                 onPress={() => navigation.navigate('Minigame')}
             ></Button>
-            <Button title="Click here to go to individual lesson"
-                onPress={() => navigation.navigate('Lesson')}
-            ></Button>
+            <Button
+                text="individual lesson"
+                onPress={() => navigation.navigate('Lesson')}>
+            </Button>
         </View>
     );
 }
