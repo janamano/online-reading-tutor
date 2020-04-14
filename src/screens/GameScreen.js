@@ -6,6 +6,9 @@ function GameScreen({ navigation }) {
     return (
         <View>
             <Text>Game before the lesson!</Text>
+            <Button title="Click here to play a minigame"
+                onPress={() => navigation.navigate('Minigame')}
+            ></Button>
             <Button title="Click here to go to individual lesson"
                 onPress={() => navigation.navigate('Lesson')}
             ></Button>
