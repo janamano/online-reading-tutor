@@ -38,19 +38,20 @@ cd online-reading-tutor
 yarn
 ```
 
+Don't forget to add the original repo as the upstream 
+
+```sh
+git remote add upstream https://github.com/Dyslexia-Done/online-reading-tutor.git
+
+```
+
+
 ## Running the Project
 
 in the root directory:
 ```sh
-yarn start
-```
-
-in separate terminal (still in root directory):
-```sh
 yarn ios
 ```
-we can run yarn web or yarn android to view other devices but iOS is all we really care about at this point.
-
 
 **if the above command does not work try running:**
 ```sh
@@ -69,8 +70,19 @@ yarn ios
 all the screen components are in src/screens.
 
 ### Styles
-[to do - import scss into components] 
 this folder is for all the styles for the different parts of the application.
 
 ### Components
 this folder is for smaller components that are shared across the app (buttons, headers, etc).
+
+
+
+## Pull requests
+
+Before submitting code for a pull request run:
+
+```sh
+yarn lint
+```
+to use the ESlint in your files and fix any of the errors in the console.
+Tag 2 reviewers for each pull request.
