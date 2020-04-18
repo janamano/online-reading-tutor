@@ -37,6 +37,9 @@ function HomeScreen({ navigation }) {
             <Button title="Click here to go to the Lessons page"
                 onPress={() => navigation.navigate('Lessons')}
             ></Button>
+            <Button title="Badges"
+                onPress={() => navigation.navigate('Badges')}
+            ></Button>
         </View>
     );
 }
