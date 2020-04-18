@@ -34,16 +34,5 @@ const BadgeScreen = ( props ) => { // Creating a component
   );
 }
 
-// function BadgeScreen({ navigation }) {
-//     return (
-//         <View>
-//             <Text>Badge Screen - Here are a list of your badges</Text>
-//             <Button title="Click here to go back to home screen"
-//                 onPress={() => navigation.navigate('Home')}
-//             ></Button>
-//         </View>
-//     );
-// }
-
 
 export default BadgeScreen;
