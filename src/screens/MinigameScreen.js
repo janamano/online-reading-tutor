@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, ImageBackground, View } from 'react-native';
-import BestGameEver from '../components/BestGameEver.js';
+import Game from '../components/Game.js';
 
 const styles = StyleSheet.create({
     container: {
@@ -28,7 +28,7 @@ function MinigameScreen({ navigation }) {
         <View style= { styles.container }>
             <ImageBackground style= { styles.backgroundImage } source={require('../assets/game_menu.png')} >
                 <View>
-                    <BestGameEver/>
+                    <Game/>
                 </View>
             </ImageBackground>
 
