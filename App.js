@@ -40,15 +40,32 @@ function App() {
         }
       }}
       >
-        <Stack.Screen name="Home" options={{ title: "Home" }} component={HomeScreen} />
-        <Stack.Screen name="Lessons" options={{ title: "Lessons" }} component={LessonMapScreen} />
-        <Stack.Screen name="Game" options={{ title: "Game" }} component={GameScreen} />
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          options={{ title: "Home" }}
+          component={HomeScreen}
+        />
+        <Stack.Screen
+          name="Lessons"
+          options={{ title: "Lessons" }}
+          component={LessonMapScreen}
+        />
+        <Stack.Screen
+          name="Game"
+          options={{ title: "Game" }}
+          component={GameScreen}
+        />
         <Stack.Screen name="Lesson">
-          { (props) => <LessonScreen {...props} badgeUpdate={{ updateState }} />}
+          {(props) => <LessonScreen {...props} badgeUpdate={{ updateState }} />}
         </Stack.Screen>
-        <Stack.Screen name="Minigame" options={{ title: "Minigame Simulation" }} component={MinigameScreen} />
+        <Stack.Screen
+          name="Minigame"
+          options={{ title: "Minigame Simulation" }}
+          component={MinigameScreen}
+        />
         <Stack.Screen name="Badges">
-          { (props) => <BadgeScreen {...props} badgeState={badgeState} />}
+          {(props) => <BadgeScreen {...props} badgeState={badgeState} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>

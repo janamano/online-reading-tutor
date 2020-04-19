@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Text, View, Button } from 'react-native';
+import * as React from "react";
+import { Text, View, Button } from "react-native";
 
 // Simplest Case for now:
 // Badge to be "given" upon completion of lesson
@@ -22,23 +22,21 @@ import { Text, View, Button } from 'react-native';
 //    which has information which badges the user has obtained.
 // 4. Using this information we decide which badges to gray out and which to show
 
-const BadgeScreen = ( props ) => { // Creating a component
+const BadgeScreen = (props) => {
+  // Creating a component
   // Creates a simple text component
   return (
-	<View>
-	    <Text>Badge Screen - Here are a list of your badges</Text>
-	    <Button title="Click here to go back to home screen"
-				onPress = {
-				    () => {
-				        props.navigation.navigate('Home');
-				        console.log("Badge State is " + props.badgeState);
-				    }
-				}
-	    >
-	    </Button>
-	</View>
+    <View>
+      <Text>Badge Screen - Here are a list of your badges</Text>
+      <Button
+        title="Click here to go back to home screen"
+        onPress={() => {
+          props.navigation.navigate("Home");
+          console.log("Badge State is " + props.badgeState);
+        }}
+      ></Button>
+    </View>
   );
-}
-
+};
 
 export default BadgeScreen;
