@@ -22,10 +22,10 @@ import variables from "./src/styles/variables";
 const Stack = createStackNavigator();
 
 function App() {
-  const [badgeState, setBadgeState] = useState(0);
+  const [badgeState, setBadgeState] = useState(false);
 
   const updateState = () => {
-    setBadgeState(2);
+    setBadgeState(true);
   };
 
   return (
