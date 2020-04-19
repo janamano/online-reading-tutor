@@ -9,12 +9,12 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { useState } from "react";
 
 // import page components
+import BadgeScreen from "./src/screens/BadgeScreen";
+import GameScreen from "./src/screens/GameScreen";
 import HomeScreen from "./src/screens/HomeScreen";
 import LessonMapScreen from "./src/screens/LessonMapScreen";
-import GameScreen from "./src/screens/GameScreen";
 import LessonScreen from "./src/screens/LessonScreen";
 import MinigameScreen from "./src/screens/MinigameScreen";
-import BadgeScreen from "./src/screens/BadgeScreen";
 
 // import styles
 import variables from "./src/styles/variables";

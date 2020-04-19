@@ -82,7 +82,7 @@ this folder is for smaller components that are shared across the app (buttons, h
 Before submitting code for a pull request run:
 
 ```sh
-yarn lint --rule 'react/jsx-props-no-spreading : off'
+yarn lint
 ```
 to use the ESlint in your files and fix any of the errors in the console.
 Tag 2 reviewers for each pull request.
