@@ -1,5 +1,3 @@
-// eslint-disable jsx-props-no-spreading
-
 import * as React from "react";
 
 // for the navigation
@@ -16,7 +14,7 @@ import LessonMapScreen from "./src/screens/LessonMapScreen";
 import GameScreen from "./src/screens/GameScreen";
 import LessonScreen from "./src/screens/LessonScreen";
 import MinigameScreen from "./src/screens/MinigameScreen";
-import BadgeScreen from "./src/screens/BadgeScreen"
+import BadgeScreen from "./src/screens/BadgeScreen";
 
 // import styles
 import variables from "./src/styles/variables";
