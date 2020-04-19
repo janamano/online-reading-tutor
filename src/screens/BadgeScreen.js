@@ -28,8 +28,14 @@ const BadgeScreen = ( props ) => { // Creating a component
 	<View>
 	    <Text>Badge Screen - Here are a list of your badges</Text>
 	    <Button title="Click here to go back to home screen"
-	        onPress={() => props.navigation.navigate('Home')}
-	    ></Button>
+				onPress = {
+				    () => {
+				        props.navigation.navigate('Home');
+				        console.log("Badge State is " + props.badgeState);
+				    }
+				}
+	    >
+	    </Button>
 	</View>
   );
 }
