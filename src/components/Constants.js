@@ -3,6 +3,6 @@ import { Dimensions } from 'react-native';
 export default Constants = {
     MAX_WIDTH: Dimensions.get("screen").width,
     MAX_HEIGHT: Dimensions.get("screen").height,
-    OBSTACLE_WIDTH: 100
+    OBSTACLE_WIDTH: 85
 
 }

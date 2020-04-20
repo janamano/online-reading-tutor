@@ -16,7 +16,7 @@ export default class Obstacle extends Component {
                     top: y,
                     width: width,
                     height: height,
-                    backgroundColor: this.props.color
+                    backgroundColor: 'yellow'
                 }} />
         )
     }
