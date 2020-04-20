@@ -2,6 +2,9 @@ import * as React from "react";
 import * as Constants from "../constants/constants";
 import { Text, View, Button, Image } from "react-native";
 
+// Export displaybadge component
+import DisplayBadge from "../components/DisplayBadge";
+
 // Simplest Case for now:
 // Badge to be "given" upon completion of lesson
 
@@ -23,52 +26,18 @@ import { Text, View, Button, Image } from "react-native";
 //    which has information which badges the user has obtained.
 // 4. Using this information we decide which badges to gray out and which to show
 
-// ******
-// TODO:
-// Figure out how to render within a loop instead of doing
-// <DisplayBadge ...>
-// <DisplayBadge ...>
-// ... n times
-// ******
-
-// ******
-// TODO:
-// Move DisplayBadge under components and call it here
-// ******
-
 // *****
 // TODO:
 // Move image css to its own separate styleshet within src/styles
 // instead of inline
 // *****
 
-const DisplayBadge = (props) => {
-  return (
-    <View>
-      <Image
-        style={{ height: 100, width: 100, opacity: props.recieved ? 1 : 0.2 }}
-        source={props.imgName}
-      />
-      <Text>{props.name}!</Text>
-    </View>
-  );
-};
-
 const BadgeScreen = (props) => {
   return (
     <View>
       <Text>Badge Screen - Here are a list of your badges</Text>
 
-      <DisplayBadge
-        name="lesson_badge"
-        imgName={props.badges[Constants.LESSON_COMPLETION_ID].badgeImage}
-        recieved={props.badges[Constants.LESSON_COMPLETION_ID].badgeState}
-      />
-      <DisplayBadge
-        name="world_badge"
-        imgName={props.badges[Constants.WORLD_COMPLETION_ID].badgeImage}
-        recieved={props.badges[Constants.WORLD_COMPLETION_ID].badgeState}
-      />
+      <DisplayBadge badges={props.badges} />
 
       <Button
         title="Click here to go back to home screen"
@@ -76,7 +45,7 @@ const BadgeScreen = (props) => {
           props.navigation.navigate("Home");
           console.log(props.badges);
           // badges is an object
-          // [0] -> {badge_id: .. , badge_name: .. , badge_state: ..},
+          // [0] -> {badgeId: .. , badgeName: .. , badgeState: ..},
           // ...
         }}
       ></Button>

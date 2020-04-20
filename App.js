@@ -26,17 +26,20 @@ const Stack = createStackNavigator();
 function App() {
   const [badges, setBadges] = useState([
     {
-      badgeID: Constants.INVALID_ID,
+      badgeID: Constants.BADGE_START,
+      badgeName: "",
       badgeImage: "",
       badgeState: Constants.BADGE_DEFAULT
     },
     {
       badgeID: Constants.LESSON_COMPLETION_ID,
+      badgeName: Constants.LESSON_COMPLETION,
       badgeImage: Constants.LESSON_COMPLETION_IMG,
       badgeState: Constants.BADGE_DEFAULT
     },
     {
       badgeID: Constants.WORLD_COMPLETION_ID,
+      badgeName: Constants.WORLD_COMPLETION,
       badgeImage: Constants.WORLD_COMPLETION_IMG,
       badgeState: Constants.BADGE_DEFAULT
     }
