@@ -18,14 +18,34 @@ import MinigameScreen from "./src/screens/MinigameScreen";
 
 // import styles
 import variables from "./src/styles/variables";
+// import constants
+import * as Constants from "./src/constants/constants";
 
 const Stack = createStackNavigator();
 
 function App() {
-  const [badgeState, setBadgeState] = useState(false);
+  const [badges, setBadges] = useState([
+    {
+      badgeID: Constants.INVALID_ID,
+      badgeImage: "",
+      badgeState: Constants.BADGE_DEFAULT
+    },
+    {
+      badgeID: Constants.LESSON_COMPLETION_ID,
+      badgeImage: "badge.png",
+      badgeState: Constants.BADGE_DEFAULT
+    },
+    {
+      badgeID: Constants.WORLD_COMPLETION_ID,
+      badgeImage: "badge.png",
+      badgeState: Constants.BADGE_DEFAULT
+    }
+  ]);
 
-  const updateState = () => {
-    setBadgeState(true);
+  const updateState = (badgeID) => {
+    const newState = badges;
+    newState[badgeID].badgeState = Constants.BADGE_ACQUIRED;
+    setBadges(newState);
   };
 
   return (
@@ -65,7 +85,7 @@ function App() {
           component={MinigameScreen}
         />
         <Stack.Screen name="Badges">
-          {(props) => <BadgeScreen {...props} badgeState={badgeState} />}
+          {(props) => <BadgeScreen {...props} badges={badges} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>

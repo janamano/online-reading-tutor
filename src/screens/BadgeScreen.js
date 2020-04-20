@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as Constants from "../constants/constants";
 import { Text, View, Button, Image } from "react-native";
 
 // Simplest Case for now:
@@ -22,19 +23,34 @@ import { Text, View, Button, Image } from "react-native";
 //    which has information which badges the user has obtained.
 // 4. Using this information we decide which badges to gray out and which to show
 
+// ******
+// TODO:
+// Figure out how to render within a loop instead of doing
+// <DisplayBadge ...>
+// <DisplayBadge ...>
+// ... n times
+// ******
 
+// ******
+// TODO:
+// Move DisplayBadge under components and call it here
+// ******
+
+// ******
+// TODO:
+// Move image to assets folder
+// ******
 const DisplayBadge = (props) => {
-   
-    return (
-      <View>
-        <Image 
-          style = {{height:100, width:100, opacity: props.recieved ? 1: 0.2}}       
-          source ={ require('./badge.png') } 
-        />
-        <Text>{props.name}!</Text>
-      </View>
-    );
-}
+  return (
+    <View>
+      <Image
+        style={{ height: 100, width: 100, opacity: props.recieved ? 1 : 0.2 }}
+        source={require("./badge.png")}
+      />
+      <Text>{props.name}!</Text>
+    </View>
+  );
+};
 
 const BadgeScreen = (props) => {
   // Creating a component
@@ -43,15 +59,23 @@ const BadgeScreen = (props) => {
     <View>
       <Text>Badge Screen - Here are a list of your badges</Text>
 
-        <DisplayBadge name='lesson_badge' recieved= {props.badgeState}/>
-        <DisplayBadge name='streak_badge' recieved= {props.badgeState}/>
-        <DisplayBadge name='world_badge' recieved= {props.badgeState}/>
+      <DisplayBadge
+        name="lesson_badge"
+        recieved={props.badges[Constants.LESSON_COMPLETION_ID].badgeState}
+      />
+      <DisplayBadge
+        name="world_badge"
+        recieved={props.badges[Constants.WORLD_COMPLETION_ID].badgeState}
+      />
 
-       <Button
+      <Button
         title="Click here to go back to home screen"
         onPress={() => {
           props.navigation.navigate("Home");
-          console.log("Badge State is " + props.badgeState);
+          console.log(props.badges);
+          // badges is an object
+          // [0] -> {badge_id: .. , badge_name: .. , badge_state: ..},
+          // ...
         }}
       ></Button>
     </View>

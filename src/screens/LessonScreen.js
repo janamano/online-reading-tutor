@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as Constants from "../constants/constants.js";
 import { Text, View, Button, Alert } from "react-native";
 
 function LessonScreen(props) {
@@ -24,7 +25,7 @@ function LessonScreen(props) {
         onPress={() => {
           alertCompletion();
           props.navigation.navigate("Home");
-          props.badgeUpdate.updateState();
+          props.badgeUpdate.updateState(Constants.LESSON_COMPLETION_ID);
         }}
       ></Button>
     </View>
