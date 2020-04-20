@@ -1,29 +1,15 @@
 import * as React from "react";
 import * as Constants from "../constants/constants.js";
 import { Text, View, Button, Alert } from "react-native";
-
+import { alertBadgeAcquired } from "../components/BadgeHelpers";
 function LessonScreen(props) {
-  const alertCompletion = () => {
-    Alert.alert(
-      "Congratulations!",
-      "You have received a new badge! Head to your profile to see it!",
-      [
-        {
-          text: "OK",
-          style: "destructive",
-        },
-      ],
-      { cancelable: false }
-    );
-  };
-
   return (
     <View>
       <Text>Lesson Simulation</Text>
       <Button
         title="Click here to finish lesson (go back to home screen)"
         onPress={() => {
-          alertCompletion();
+          alertBadgeAcquired(Constants.LESSON_COMPLETION_ID);
           props.navigation.navigate("Home");
           props.badgeUpdate.updateState(Constants.LESSON_COMPLETION_ID);
         }}

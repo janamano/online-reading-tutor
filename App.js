@@ -20,6 +20,7 @@ import MinigameScreen from "./src/screens/MinigameScreen";
 import variables from "./src/styles/variables";
 // import constants
 import * as Constants from "./src/constants/constants";
+import { returnImgForID } from "./src/components/BadgeHelpers";
 
 const Stack = createStackNavigator();
 
@@ -51,23 +52,6 @@ function App() {
       badgeState: Constants.BADGE_DEFAULT
     }
   ]);
-
-  // This is bad. This should have been coupled with the
-  // id in the above object. But I didn't do it initially,
-  // when I wrote it out :/
-  // I sad :(
-  const returnImgForID = (badgeID) => {
-    switch (badgeID) {
-      case Constants.LESSON_COMPLETION_ID:
-        return Constants.LESSON_COMPLETION_IMG;
-      case Constants.STREAKS_ID:
-        return Constants.STREAKS_IMG;
-      case Constants.WORLD_COMPLETION_ID:
-        return Constants.WORLD_COMPLETION_IMG;
-      default:
-        return "";
-    }
-  };
 
   const updateState = (badgeID) => {
     const newState = badges;
