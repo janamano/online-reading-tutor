@@ -40,6 +40,13 @@ import { Text, View, Button, Image } from "react-native";
 // TODO:
 // Move image to assets folder
 // ******
+
+// *****
+// TODO:
+// Move image css to its own separate styleshet within src/styles
+// instead of inline
+// *****
+
 const DisplayBadge = (props) => {
   return (
     <View>
