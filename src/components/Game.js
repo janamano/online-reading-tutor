@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { StyleSheet, StatusBar, Text, View, Alert, TouchableOpacity } from "react-native";
+import { StyleSheet, StatusBar, Text, View, Image, Button, Alert, TouchableOpacity } from "react-native";
+import Modal from 'react-native-modal';
 import { GameEngine } from "react-native-game-engine";
 import Matter from 'matter-js';
 import Constants from './Constants.js';
@@ -23,9 +24,11 @@ export default class Game extends Component {
     super(props);
     this.gameEngine = null;
     this.entities = this.setupWorld();
+    this.goToHome = this.goToHome.bind(this)  ;
 
     this.state = {
-      running: true
+      running: true,
+      showModal: false
     }
   }
 
@@ -70,18 +73,47 @@ export default class Game extends Component {
     }
   }
 
+  /*
+  showAlert() {
+    const {navigation, position} = this.props
+
+    
+    Alert.alert(
+      'Game Over',
+        '',
+        [
+          {text: 'Retart', onPress: () => this.reset()},
+          {text: 'Exit', onPress: () => this.goToHome()},
+        ]
+      );
+      
+    }
+
+*/
+
+  goToHome = () => {
+    this.props.navigation.navigate('Home')
+    this.setState({
+      showModal: false
+    });
+    }
+
   onEvent = (e) => {
     if (e.type === "game-over") {
+      
       this.setState({
-        running:false
+        running:false,
+        showModal: true
       })
+      //this.showAlert()
     }
   }
 
   reset = () => {
     this.gameEngine.swap(this.setupWorld());
     this.setState({
-      running: true
+      running: true,
+      showModal: false
     });
   }
 
@@ -97,11 +129,28 @@ export default class Game extends Component {
                 entities={this.entities}>
                 <StatusBar hidden={true} />
             </GameEngine>
-            <Text style={styles.score}>{this.state.score}</Text>
+
+            <View>
+              <Modal animationType = {"slide"} transparent = {true}
+                visible = {this.state.showModal} >
+                  <View style={styles.gameOverContainer}>
+                    <Text style={styles.gameOverText}> Game Over </Text>
+                    <Image
+                      source=
+                      {require('../assets/baby_dragon.png')}
+                      style={styles.ImageIconStyle}
+                    />
+                    <Button title = "Retart" onPress= {() => this.reset()} />
+                    <Button title = "Exit" onPress= {() => this.goToHome()} />
+                  </View>
+              </Modal>
+          </View>
+          
+            {/*<Text style={styles.score}>{this.state.score}</Text>
             {/* TODO: fix the gameover screen formatting and give option to restart the game */}
-            {!this.state.running ?
+            {/*} {!this.state.running ?
                     <View onPress={this.reset}><Text style={styles.gameOverText}>Game Over</Text>
-                    <Text style={styles.gameOverSubText}>Try Again</Text></View> : null}
+            <Text style={styles.gameOverSubText}>Try Again</Text></View> : null} */}
         </View>
     );
   }
@@ -129,8 +178,10 @@ gameContainer: {
     right: 0,
 },
 gameOverText: {
-    color: 'white',
+    color: 'black',
     fontSize: 48,
+    alignSelf: 'center',
+    padding: 10
     // fontFamily: '04b_19'
 },
 gameOverSubText: {
@@ -138,6 +189,20 @@ gameOverSubText: {
     fontSize: 24,
     // fontFamily: '04b_19'
 },
+gameOverContainer: {
+    backgroundColor:"#ffffff",
+    alignSelf: 'center',
+    borderRadius: 10,
+    width: 350,
+    height: 600,
+    flex: 0.5
+},
+ImageIconStyle: {
+     width: 200,
+     height: 200,
+     alignSelf: 'center',
+     margin: 25
+}
 // fullScreen: {
 //     position: 'absolute',
 //     top: 0,
