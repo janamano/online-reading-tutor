@@ -28,7 +28,7 @@ function MinigameScreen({ navigation }) {
         <View style= { styles.container }>
             <ImageBackground style= { styles.backgroundImage } source={require('../assets/game_menu.png')} >
                 <View>
-                    <Game/>
+                    <Game navigation = {navigation}/>
                 </View>
             </ImageBackground>
 
