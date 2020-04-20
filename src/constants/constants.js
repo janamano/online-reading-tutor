@@ -7,6 +7,11 @@ export const LESSON_COMPLETION_ID = 1;
 export const WORLD_COMPLETION_ID = 2;
 export const STREAKS_ID = 3;
 
+// Badge Images names
+export const LESSON_COMPLETION_IMG = require("../assets/lesson_badge.png");
+export const WORLD_COMPLETION_IMG = require("../assets/world_badge.png");
+export const STREAKS_IMAGE = "";
+
 // Badge States
 export const BADGE_DEFAULT = false;
 export const BADGE_ACQUIRED = true;

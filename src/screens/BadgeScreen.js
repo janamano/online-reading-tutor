@@ -36,11 +36,6 @@ import { Text, View, Button, Image } from "react-native";
 // Move DisplayBadge under components and call it here
 // ******
 
-// ******
-// TODO:
-// Move image to assets folder
-// ******
-
 // *****
 // TODO:
 // Move image css to its own separate styleshet within src/styles
@@ -52,7 +47,7 @@ const DisplayBadge = (props) => {
     <View>
       <Image
         style={{ height: 100, width: 100, opacity: props.recieved ? 1 : 0.2 }}
-        source={require("./badge.png")}
+        source={props.imgName}
       />
       <Text>{props.name}!</Text>
     </View>
@@ -60,18 +55,18 @@ const DisplayBadge = (props) => {
 };
 
 const BadgeScreen = (props) => {
-  // Creating a component
-  // Creates a simple text component
   return (
     <View>
       <Text>Badge Screen - Here are a list of your badges</Text>
 
       <DisplayBadge
         name="lesson_badge"
+        imgName={props.badges[Constants.LESSON_COMPLETION_ID].badgeImage}
         recieved={props.badges[Constants.LESSON_COMPLETION_ID].badgeState}
       />
       <DisplayBadge
         name="world_badge"
+        imgName={props.badges[Constants.WORLD_COMPLETION_ID].badgeImage}
         recieved={props.badges[Constants.WORLD_COMPLETION_ID].badgeState}
       />
 

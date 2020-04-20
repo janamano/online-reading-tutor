@@ -32,12 +32,12 @@ function App() {
     },
     {
       badgeID: Constants.LESSON_COMPLETION_ID,
-      badgeImage: "badge.png",
+      badgeImage: Constants.LESSON_COMPLETION_IMG,
       badgeState: Constants.BADGE_DEFAULT
     },
     {
       badgeID: Constants.WORLD_COMPLETION_ID,
-      badgeImage: "badge.png",
+      badgeImage: Constants.WORLD_COMPLETION_IMG,
       badgeState: Constants.BADGE_DEFAULT
     }
   ]);
