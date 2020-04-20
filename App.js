@@ -29,20 +29,20 @@ function App() {
       badgeID: Constants.BADGE_START,
       badgeName: "",
       badgeImage: "",
-      badgeState: Constants.BADGE_DEFAULT
+      badgeState: Constants.BADGE_DEFAULT,
     },
     {
       badgeID: Constants.LESSON_COMPLETION_ID,
       badgeName: Constants.LESSON_COMPLETION,
       badgeImage: Constants.LESSON_COMPLETION_IMG,
-      badgeState: Constants.BADGE_DEFAULT
+      badgeState: Constants.BADGE_DEFAULT,
     },
     {
       badgeID: Constants.WORLD_COMPLETION_ID,
       badgeName: Constants.WORLD_COMPLETION,
       badgeImage: Constants.WORLD_COMPLETION_IMG,
-      badgeState: Constants.BADGE_DEFAULT
-    }
+      badgeState: Constants.BADGE_DEFAULT,
+    },
   ]);
 
   const updateState = (badgeID) => {
@@ -53,17 +53,17 @@ function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{
-        headerStyle: {
-          backgroundColor: variables.palette.gray.uiBackground
-        },
-        headerTitleStyle: {
-          fontWeight: "bold",
-          color: variables.palette.white.primary
-        }
-      }}
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: variables.palette.gray.uiBackground,
+          },
+          headerTitleStyle: {
+            fontWeight: "bold",
+            color: variables.palette.white.primary,
+          },
+        }}
       >
-      <Stack.Navigator>
         <Stack.Screen
           name="Home"
           options={{ title: "Home" }}
