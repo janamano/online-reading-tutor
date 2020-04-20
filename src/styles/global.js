@@ -3,7 +3,7 @@ import variables from "./variables";
 // global styles
 import { StyleSheet } from 'react-native';
 
-
+// global shared component/screen styles
 export default StyleSheet.create({
     primaryBtn: {
         marginRight: 40,
@@ -12,14 +12,17 @@ export default StyleSheet.create({
         marginBottom: 20,
         paddingTop: 20,
         paddingBottom: 20,
-        backgroundColor: variables.basePurple,
+        backgroundColor: variables.palette.blue.primary,
         borderRadius: 50
     },
     primaryBtnText: {
         paddingLeft: 15,
         paddingRight: 15,
-        color: "white",
+        color: variables.palette.white.primary,
         textAlign: "center",
         fontSize: 18
+    },
+    appContainer: {
+        backgroundColor: variables.palette.gray.uiBackground,
     }
 });
