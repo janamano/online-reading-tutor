@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as Constants from "../constants/constants";
-import { Text, View, Button, Image } from "react-native";
+import { Text, View, Button, StyleSheet, Image } from "react-native";
 
 // Export displaybadge component
 import DisplayBadge from "../components/DisplayBadge";
@@ -34,8 +34,8 @@ import DisplayBadge from "../components/DisplayBadge";
 
 const BadgeScreen = (props) => {
   return (
-    <View>
-      <Text>Badge Screen - Here are a list of your badges</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Let's earn this badges!</Text>
 
       <DisplayBadge badges={props.badges} />
 
@@ -54,3 +54,17 @@ const BadgeScreen = (props) => {
 };
 
 export default BadgeScreen;
+
+const styles = StyleSheet.create({
+  container: {
+      flex: 1,
+      backgroundColor: '#ffffff',
+  },
+  title: {
+      margin: 20,
+      alignSelf: "center",
+      fontWeight: 'bold',
+      fontSize: 30
+  }
+
+});

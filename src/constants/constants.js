@@ -9,7 +9,7 @@ export const STREAKS_ID = 3;
 
 // Badge Image names
 export const LESSON_COMPLETION_IMG = require("../assets/badges/lesson_completion.png");
-export const WORLD_COMPLETION_IMG = require("../assets/badges/01.png");
+export const WORLD_COMPLETION_IMG = require("../assets/lesson_badge.png");
 export const STREAKS_IMG = require("../assets/badges/01.png");
 export const BADGE_LOCKED_IMG = require("../assets/badges/locked.png");
 export const BADGE_UNKNOWN_IMG = "";
