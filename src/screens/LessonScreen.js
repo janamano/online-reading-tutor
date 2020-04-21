@@ -11,7 +11,7 @@ function LessonScreen(props) {
         onPress={() => {
           alertBadgeAcquired(Constants.LESSON_COMPLETION_ID);
           props.navigation.navigate("Home");
-          props.badgeUpdate.updateState(
+          props.badgeUpdate.updateBadgeState(
             Constants.LESSON_COMPLETION,
             Constants.LESSON_COMPLETION_1
           );
