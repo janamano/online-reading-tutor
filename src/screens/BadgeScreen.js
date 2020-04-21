@@ -1,5 +1,6 @@
 import * as React from "react";
 import Constants from "../components/Constants.js";
+import BadgeConstants from "../components/BadgeConstants.js";
 import { Text, View, Button, StyleSheet, Image } from "react-native";
 
 // Export displaybadge component
@@ -44,6 +45,7 @@ const BadgeScreen = (props) => {
         onPress={() => {
           props.navigation.navigate("Home");
           console.log(props.badges);
+          console.log(BadgeConstants.TEST);
           // "badges" is as follows
           // [0] -> [0] -> {badgeId: .. , badgeName: .. , badgeState: ..}
           //     -> [1] -> {badgeId: .. , badgeName: .. , badgeState: ..}

@@ -77,7 +77,6 @@ export const alertBadgeAcquired = (badgeID) => {
 };
 
 export const renderWorldBadges = (world_props) => {
-  console.log(world_props.length);
   let WorldTags = [];
   for (let i = 0; i < world_props.length; i++) {
     WorldTags.push(

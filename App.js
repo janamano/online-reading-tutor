@@ -5,9 +5,6 @@ import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-// use-state hooks
-import { useState } from "react";
-
 // import page components
 import BadgeScreen from "./src/screens/BadgeScreen";
 import GameScreen from "./src/screens/GameScreen";
@@ -20,82 +17,16 @@ import MinigameScreen from "./src/screens/MinigameScreen";
 import variables from "./src/styles/variables";
 // import constants
 import Constants from "./src/components/Constants";
+import BadgeConstants from "./src/components/BadgeConstants";
 import { returnImgForID } from "./src/components/BadgeHelpers";
 
 const Stack = createStackNavigator();
 
 function App() {
-  // Badge Stuff
-  const [badges, setBadges] = useState([
-    [
-      {
-        badgeID: Constants.LESSON_COMPLETION_1,
-        badgeName: Constants.LESSON_COMPLETION_1_BADGE,
-        badgeImage: Constants.BADGE_LOCKED_IMG,
-        badgeState: Constants.BADGE_DEFAULT
-      },
-      {
-        badgeID: Constants.LESSON_COMPLETION_2,
-        badgeName: Constants.LESSON_COMPLETION_2_BADGE,
-        badgeImage: Constants.BADGE_LOCKED_IMG,
-        badgeState: Constants.BADGE_DEFAULT
-      },
-      {
-        badgeID: Constants.LESSON_COMPLETION_3,
-        badgeName: Constants.LESSON_COMPLETION_3_BADGE,
-        badgeImage: Constants.BADGE_LOCKED_IMG,
-        badgeState: Constants.BADGE_DEFAULT
-      }
-    ],
-    [
-      {
-        badgeID: Constants.WORLD_COMPLETION_FIRE,
-        badgeName: Constants.WORLD_COMPLETION_FIRE_BADGE,
-        badgeImage: Constants.BADGE_LOCKED_IMG,
-        badgeState: Constants.BADGE_DEFAULT
-      },
-      {
-        badgeID: Constants.WORLD_COMPLETION_ICE,
-        badgeName: Constants.WORLD_COMPLETION_ICE_BADGE,
-        badgeImage: Constants.BADGE_LOCKED_IMG,
-        badgeState: Constants.BADGE_DEFAULT
-      },
-      {
-        badgeID: Constants.WORLD_COMPLETION_WATER,
-        badgeName: Constants.WORLD_COMPLETION_WATER_BADGE,
-        badgeImage: Constants.BADGE_LOCKED_IMG,
-        badgeState: Constants.BADGE_DEFAULT
-      }
-    ],
-    [
-      {
-        badgeID: Constants.STREAKS_5_DAY,
-        badgeName: Constants.STREAKS_5_DAY_BADGE,
-        badgeImage: Constants.BADGE_LOCKED_IMG,
-        badgeState: Constants.BADGE_DEFAULT
-      },
-      {
-        badgeID: Constants.STREAKS_10_DAY,
-        badgeName: Constants.STREAKS_10_DAY_BADGE,
-        badgeImage: Constants.BADGE_LOCKED_IMG,
-        badgeState: Constants.BADGE_DEFAULT
-      },
-      {
-        badgeID: Constants.STREAKS_15_DAY,
-        badgeName: Constants.STREAKS_15_DAY_BADGE,
-        badgeImage: Constants.BADGE_LOCKED_IMG,
-        badgeState: Constants.BADGE_DEFAULT
-      }
-    ]
-  ]);
-
-  const updateState = (badgeComponent, badgeID) => {
-    // badgeComponent refers to what type of badge (i.e. lesson/world) we're trying to change
-    // badgeID refers to specific badge's component to update
-    const newState = badges;
-    newState[badgeComponent][badgeID].badgeState = Constants.BADGE_ACQUIRED;
-    newState[badgeComponent][badgeID].badgeImage = returnImgForID(badgeID);
-    setBadges(newState);
+  // Update the badge state
+  const updateBadgeState = (badgeComponent, badgeID) => {
+    BadgeConstants.BADGES[badgeComponent][badgeID].badgeState = Constants.BADGE_ACQUIRED;
+    BadgeConstants.BADGES[badgeComponent][badgeID].badgeImage = returnImgForID(badgeID);
   };
 
   return (
@@ -127,7 +58,9 @@ function App() {
           component={GameScreen}
         />
         <Stack.Screen name="Lesson">
-          {(props) => <LessonScreen {...props} badgeUpdate={{ updateState }} />}
+          {(props) => (
+            <LessonScreen {...props} badgeUpdate={{ updateBadgeState }} />
+          )}
         </Stack.Screen>
         <Stack.Screen
           name="Minigame"
@@ -135,7 +68,7 @@ function App() {
           component={MinigameScreen}
         />
         <Stack.Screen name="Badges">
-          {(props) => <BadgeScreen {...props} badges={badges} />}
+          {(props) => <BadgeScreen {...props} badges={BadgeConstants.BADGES} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
