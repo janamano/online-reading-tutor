@@ -5,6 +5,8 @@ import Obstacle from './Obstacle.js';
 let jumps = 0;
 let obstacles = 0;
 let timer = 0;
+let frameCount = 0;
+let currentFrame = 1;
 
 export const randomNumber = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min)
@@ -29,13 +31,13 @@ export const addObstacleToGame = (x, world, entities) => {
 
     Matter.World.add(world, [obstacle]);
     entities["obstacle" + obstacles] = {
-        body: obstacle, size: [width, obstacleHeight], renderer: Obstacle
+        body: obstacle, size: [width, obstacleHeight], renderer: Obstacle, scoreClaimed: false
     }
     obstacles += 1
 
 }
 
-const Physics = (entities, { touches, time }) => {
+const Physics = (entities, { touches, time, dispatch }) => {
     let engine = entities.physics.engine;
     let player = entities.player.body;
     let world = entities.physics.world;
@@ -49,9 +51,9 @@ const Physics = (entities, { touches, time }) => {
 
     });
 
-     var collision1 = Matter.SAT.collides(player, entities.platform1.body);
-     var collision2 = Matter.SAT.collides(player, entities.platform2.body);
-
+    var collision1 = Matter.SAT.collides(player, entities.platform1.body);
+    var collision2 = Matter.SAT.collides(player, entities.platform2.body);
+ 
     if (collision1.collided || collision2.collided) {
         jumps = 0;
     }
@@ -65,13 +67,28 @@ const Physics = (entities, { touches, time }) => {
 
     Object.keys(entities).forEach(key => {
     if (key.indexOf("obstacle") === 0 && entities.hasOwnProperty(key)){
-        Matter.Body.translate(entities[key].body, {x: -2, y: 0});
+        Matter.Body.translate(entities[key].body, {x: -4, y: 0});
+
+
+
+        if (entities[key].body.position.x <= player.position.x && !entities[key].scoreClaimed) {
+            entities[key].scoreClaimed = true;
+            dispatch({ type: "scored" });
+        }
+
+        let collision = Matter.SAT.collides(entities[key].body, player);
+        if (collision.collided) {
+            // add score to db
+            dispatch({ type: "game-over"});
+        }
+
+        
 
     } else if (key.indexOf("platform") === 0){
             if (entities[key].body.position.x <= -1 * Constants.MAX_WIDTH){
                 Matter.Body.setPosition(entities[key].body, { x: Constants.MAX_WIDTH, y: entities[key].body.position.y})
             } else {
-                Matter.Body.translate(entities[key].body, {x: -2, y: 0});
+                Matter.Body.translate(entities[key].body, {x: -3, y: 0});
             }
         }
     })
@@ -79,6 +96,15 @@ const Physics = (entities, { touches, time }) => {
     
     if (player.position.x != 0) {
         Matter.Body.setPosition(player, {x: 0, y: player.position.y})
+    }
+
+    frameCount += 1;
+    if (frameCount % 3 === 0) {
+        currentFrame += 1;
+        if (currentFrame > 8) {
+            currentFrame = 1;
+        }
+        entities.player.frame = currentFrame;
     }
 
     Matter.Engine.update(engine, time.delta)

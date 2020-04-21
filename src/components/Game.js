@@ -19,8 +19,9 @@ export class Game extends Component {
 
     this.state = {
       running: true,
-      showModal: false
-    };
+      showModal: false,
+      score: 0
+    }
   }
 
   setupWorld = () => {
@@ -28,8 +29,8 @@ export class Game extends Component {
     const { world } = engine;
 
     // player and platform
-    const player = Matter.Bodies.rectangle(0, Constants.MAX_HEIGHT / 2, 50, 50);
-    const platform1 = Matter.Bodies.rectangle(
+    let player = Matter.Bodies.rectangle(0, Constants.MAX_HEIGHT / 2, 88, 120);
+    let platform1 = Matter.Bodies.rectangle(
       0,
       Constants.MAX_HEIGHT - 150,
       Constants.MAX_WIDTH + 4,
@@ -49,10 +50,8 @@ export class Game extends Component {
 
 
     return {
-      physics: { engine, world },
-      player: {
-        body: player, size: [50, 50], color: "blue", renderer: Player
-      },
+      physics: { engine: engine, world: world },
+      player: { body: player, size: [88, 120], frame: 1, renderer: Player },
       platform1: { body: platform1, size: [Constants.MAX_WIDTH + 4, 50], renderer: Platform },
       platform2: { body: platform2, size: [Constants.MAX_WIDTH + 4, 50], renderer: Platform }
 
@@ -90,7 +89,11 @@ export class Game extends Component {
         running: false,
         showModal: true
       });
-      // this.showAlert()
+      //this.showAlert()
+    } else if (e.type === "scored") {
+      this.setState({
+        score: this.state.score + 1
+      });
     }
   }
 
@@ -104,37 +107,34 @@ export class Game extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        {/* <Image style={styles.backgroundImage} resizeMode="stretch" source={require("../assets/game_menu.png")} /> */}
-        <GameEngine
-          ref={(ref) => { this.gameEngine = ref; }}
-          style={styles.gameContainer}
-          systems={[Physics]}
-          running={this.state.running}
-          onEvent={this.onEvent}
-          entities={this.entities}
-        >
-          <StatusBar hidden />
-        </GameEngine>
-
-        <View>
-          <Modal
-            animationType="slide"
-            transparent
-            visible={this.state.showModal}
-          >
-            <View style={styles.gameOverContainer}>
-              <Text style={styles.gameOverText}> Game Over </Text>
-              <Image
-                source={require("../assets/baby_dragon.png")}
-                style={styles.ImageIconStyle}
-              />
-              <Button title="Retart" onPress={() => this.reset()} />
-              <Button title="Exit" onPress={() => this.goToHome()} />
-            </View>
-          </Modal>
+        <View style={styles.container}>
+            {/* <Image style={styles.backgroundImage} resizeMode="stretch" source={require("../assets/game_menu.png")} /> */}
+            <GameEngine
+                ref={(ref) => { this.gameEngine = ref; }}
+                style={styles.gameContainer}
+                systems={[Physics]}
+                running={this.state.running}
+                onEvent={this.onEvent}
+                entities={this.entities}>
+                <StatusBar hidden={true} />
+            </GameEngine>
+            <Text style={styles.score}>{this.state.score}</Text>
+            <View>
+              <Modal animationType = {"slide"} transparent = {true}
+                visible = {this.state.showModal} >
+                  <View style={styles.gameOverContainer}>
+                    <Text style={styles.gameOverText}> Game Over </Text>
+                    <Image
+                      source=
+                      {require('../assets/baby_dragon.png')}
+                      style={styles.ImageIconStyle}
+                    />
+                    <Button title = "Restart" onPress= {() => this.reset()} />
+                    <Button title = "Exit" onPress= {() => this.goToHome()} />
+                  </View>
+              </Modal>
+          </View>
         </View>
-      </View>
     );
   }
 }
@@ -142,10 +142,20 @@ export class Game extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#000"
-  },
-  backgroundImage: {
-    position: "absolute",
+    backgroundColor: '#000',
+},
+score: {
+  position: 'absolute',
+  color: 'white',
+  fontSize: 72,
+  top: 50,
+  left: -20,
+  textShadowColor: '#444444',
+  textShadowOffset: { width: 2, height: 2},
+  textShadowRadius: 2,
+},
+backgroundImage: {
+    position: 'absolute',
     // top:  0,
     // bottom: 0,
     left: -Constants.MAX_WIDTH / 2,

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
 
 export default class Player extends Component {
     render() {
@@ -8,16 +8,19 @@ export default class Player extends Component {
         const x = this.props.body.position.x - width / 2;
         const y = this.props.body.position.y - height / 2;
 
+        let currentFrame = Frames['frame' + this.props.frame]
         return (
-            <View
+            <Image
                 style={{
                     position: 'absolute',
                     right: x,
                     top: y,
                     width: width,
                     height: height,
-                    backgroundColor: this.props.color
-                }} />
+                }}
+                resizeMode="stretch"
+                source={currentFrame}
+                 />
         )
     }
 }
