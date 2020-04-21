@@ -59,6 +59,8 @@ export const returnBadgeNameForID = (badgeID) => {
   }
 };
 
+
+// Show an alert saying you've got a badge
 export const alertBadgeAcquired = (badgeID) => {
   let badgeName = returnBadgeNameForID(badgeID);
   // Add excalamation point at the end
@@ -95,6 +97,7 @@ export const renderWorldBadges = (world_props) => {
   return WorldTags;
 };
 
+// Render Streak Badges
 export const renderStreakImages = (streak_props) => {
   let StreakTags = [];
   for (let i = 0; i < streak_props.length; i++) {
@@ -114,6 +117,7 @@ export const renderStreakImages = (streak_props) => {
   return StreakTags;
 };
 
+// Render Lesson Badges
 export const renderLessonImages = (lesson_props) => {
   let MonthTags = [];
   for (let i = 0; i < lesson_props.length; i++) {
@@ -131,4 +135,10 @@ export const renderLessonImages = (lesson_props) => {
     );
   }
   return MonthTags;
+};
+
+// Update the badge state
+export const updateBadgeState = (badgeComponent, badgeID) => {
+    BadgeConstants.BADGES[badgeComponent][badgeID].badgeState = Constants.BADGE_ACQUIRED;
+    BadgeConstants.BADGES[badgeComponent][badgeID].badgeImage = returnImgForID(badgeID);
 };

@@ -16,7 +16,7 @@ const DisplayBadge = (props) => {
   // ...
   return (
     <View>
-      <Text style={styles.title}>World completion badges</Text>
+      <Text style={styles.title}>World badges</Text>
       <View style={styles.badgeContainer}>
         {renderWorldBadges(props.badges[Constants.WORLD_COMPLETION])}
       </View>

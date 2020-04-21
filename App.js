@@ -18,17 +18,11 @@ import variables from "./src/styles/variables";
 // import constants
 import Constants from "./src/components/Constants";
 import BadgeConstants from "./src/components/BadgeConstants";
-import { returnImgForID } from "./src/components/BadgeHelpers";
+import { returnImgForID, updateBadgeState } from "./src/components/BadgeHelpers";
 
 const Stack = createStackNavigator();
 
 function App() {
-  // Update the badge state
-  const updateBadgeState = (badgeComponent, badgeID) => {
-    BadgeConstants.BADGES[badgeComponent][badgeID].badgeState = Constants.BADGE_ACQUIRED;
-    BadgeConstants.BADGES[badgeComponent][badgeID].badgeImage = returnImgForID(badgeID);
-  };
-
   return (
     <NavigationContainer>
       <Stack.Navigator
