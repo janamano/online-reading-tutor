@@ -1,75 +1,56 @@
 import * as React from "react";
-import * as Constants from "../constants/constants";
+import Constants from "../components/Constants.js";
 import { Text, View, Button, Image, StyleSheet } from "react-native";
+import {
+  renderWorldBadges,
+  renderStreakImages,
+  renderLessonImages,
+} from "../components/BadgeHelpers.js";
 
 const DisplayBadge = (props) => {
-
-	// props is the badges object:
-	// [0] -> {badgeId: .. , badgeName: .. , badgeState: ..},
-	// ...
-	renderWorldImages = () => {
-			let WorldTags = []
-			for(let i = Constants.LESSON_COMPLETION_ID; i < props.badges.length; i++) {
-				WorldTags.push(<Image key={props.badges[i].badgeID} source={props.badges[i].badgeImage} style={{margin: 5, width: 100, height: 100, opacity: props.badges[i].badgeState ? 1 : 0.5}} />);
-			}
-			return WorldTags;
-	}
-	renderStreakImages = () => {
-		let StreakTags = []
-		for(let i = Constants.LESSON_COMPLETION_ID; i < props.badges.length; i++) {
-			StreakTags.push(<Image source=
-				{require('../assets/award.png')}style={{margin: 5, width: 100, height: 100, opacity: props.badges[i].badgeState ? 1 : 0.5}} />);
-		}
-		return StreakTags;
-	}
-	renderMonthImages = () => {
-		let MonthTags = []
-		for(let i = Constants.LESSON_COMPLETION_ID; i < props.badges.length; i++) {
-			MonthTags.push(<Image source=
-				{require('../assets/lesson_badge.png')} style={{margin: 5, width: 100, height: 100, opacity: props.badges[i].badgeState ? 1 : 0.5}} />);
-		}
-		return MonthTags;
-	}
-
+  // props is the badges object:
+  // [0] -> [0] -> {badgeId: .. , badgeName: .. , badgeState: ..}
+  //     -> [1] -> {badgeId: .. , badgeName: .. , badgeState: ..}
+  // [1] -> [0] -> {badgeId: .. , badgeName: .. , badgeState: ..}
+  //     -> [1] -> {badgeId: .. , badgeName: .. , badgeState: ..}
+  // ...
   return (
-	<View>
-		<Text style={styles.title}>World completion badges</Text>
-		<View style={styles.badgeContainer}>
-			{renderWorldImages()}
-		</View>
-		<Text style={styles.title}>Streak badges</Text>
-		<View style={styles.badgeContainer}>
-			{renderStreakImages()}
-		</View>
-		<Text style={styles.title}>Monthly badges</Text>
-		<View style={styles.badgeContainer}>
-			{renderMonthImages()}
-		</View>
-	</View>
+    <View>
+      <Text style={styles.title}>World completion badges</Text>
+      <View style={styles.badgeContainer}>
+        {renderWorldBadges(props.badges[Constants.WORLD_COMPLETION])}
+      </View>
+      <Text style={styles.title}>Streak badges</Text>
+      <View style={styles.badgeContainer}>
+        {renderStreakImages(props.badges[Constants.STREAKS])}
+      </View>
+      <Text style={styles.title}>Lesson badges</Text>
+      <View style={styles.badgeContainer}>
+        {renderLessonImages(props.badges[Constants.LESSON_COMPLETION])}
+      </View>
+    </View>
   );
 };
 
-export default DisplayBadge
-
+export default DisplayBadge;
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#ffffff',
-	},
-	badgeContainer: {
-		margin: 20,
-	    height: 100,
-	    flexDirection: "row"
-	},
-	ImageIconStyle: {
-		width: 200,
-		height: 200,
-	},
-	title: {
-		alignSelf: "center",
-		fontWeight: 'bold',
-		fontSize: 20
-	}
-  });
-  
+  container: {
+    flex: 1,
+    backgroundColor: "#ffffff",
+  },
+  badgeContainer: {
+    margin: 20,
+    height: 100,
+    flexDirection: "row",
+  },
+  ImageIconStyle: {
+    width: 200,
+    height: 200,
+  },
+  title: {
+    alignSelf: "center",
+    fontWeight: "bold",
+    fontSize: 20,
+  },
+});

@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as Constants from "../constants/constants";
+import Constants from "../components/Constants.js";
 import { Text, View, Button, StyleSheet, Image } from "react-native";
 
 // Export displaybadge component
@@ -35,7 +35,7 @@ import DisplayBadge from "../components/DisplayBadge";
 const BadgeScreen = (props) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Let's earn this badges!</Text>
+      <Text style={styles.title}>Your Badges!</Text>
 
       <DisplayBadge badges={props.badges} />
 
@@ -44,8 +44,11 @@ const BadgeScreen = (props) => {
         onPress={() => {
           props.navigation.navigate("Home");
           console.log(props.badges);
-          // badges is an object
-          // [0] -> {badgeId: .. , badgeName: .. , badgeState: ..},
+          // "badges" is as follows
+          // [0] -> [0] -> {badgeId: .. , badgeName: .. , badgeState: ..}
+          //     -> [1] -> {badgeId: .. , badgeName: .. , badgeState: ..}
+          // [1] -> [0] -> {badgeId: .. , badgeName: .. , badgeState: ..}
+          //     -> [1] -> {badgeId: .. , badgeName: .. , badgeState: ..}
           // ...
         }}
       ></Button>
@@ -57,14 +60,13 @@ export default BadgeScreen;
 
 const styles = StyleSheet.create({
   container: {
-      flex: 1,
-      backgroundColor: '#ffffff',
+    flex: 1,
+    backgroundColor: "#ffffff",
   },
   title: {
-      margin: 20,
-      alignSelf: "center",
-      fontWeight: 'bold',
-      fontSize: 30
-  }
-
+    margin: 20,
+    alignSelf: "center",
+    fontWeight: "bold",
+    fontSize: 30,
+  },
 });
