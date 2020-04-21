@@ -31,8 +31,6 @@ function MinigameScreen({ navigation }) {
                     <Game navigation = {navigation}/>
                 </View>
             </ImageBackground>
-
-
         </View>
 
     );
