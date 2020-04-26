@@ -1,10 +1,10 @@
 import * as React from "react";
 import {
-  Platform, StyleSheet, Text, View
+  Platform, StyleSheet, Text, View, Dimensions
 } from "react-native";
 
 // internal components
-import { Button } from "../components/index";
+import { Button, BottomSheet } from "../components/index";
 
 
 const instructions = Platform.select({
@@ -33,22 +33,50 @@ const styles = StyleSheet.create({
 });
 
 
-function HomeScreen({ navigation }) {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.welcome}>Welcome to the Reading Tutor!</Text>
-      <Text style={styles.instructions}>To get started, click here!</Text>
-      <Text style={styles.instructions}>{instructions}</Text>
-      <Button
-        text="Click here to go to the Lessons page"
-        onPress={() => navigation.navigate("Lessons")}
-      />
-      <Button
-        text="Badges"
-        onPress={() => navigation.navigate("Badges")}
-      />
-    </View>
-  );
+class HomeScreen extends React.Component {
+  constructor(props) {
+    super();
+    this.state = {
+      editMode: false
+    };
+  }
+
+  toggleEditState() {
+    this.setState((prevState) => {
+      const newState = !prevState.editMode;
+      return {
+        editMode: newState
+      };
+    });
+  }
+
+  render() {
+    const { editMode } = this.state;
+    const modalHeight = 2 * (Dimensions.get("screen").height / 3);
+
+    return (
+      <View style={styles.container}>
+        <Text style={styles.welcome}>Welcome to the Reading Tutor!</Text>
+        <Text style={styles.instructions}>To get started, click here!</Text>
+        <Text style={styles.instructions}>{instructions}</Text>
+        <Button
+          text="Click here to go to the Lessons page"
+          onPress={() => this.props.navigation.navigate("Lessons")}
+        />
+        <Button
+          text="Badges"
+          onPress={() => this.props.navigation.navigate("Badges")}
+        />
+        <Button
+          text="click here for modal"
+          onPress={() => this.toggleEditState()}
+        />
+        <BottomSheet onDismiss={() => this.toggleEditState()} visible={editMode} height={modalHeight}>
+          <Text>Modal Child</Text>
+        </BottomSheet>
+      </View>
+    );
+  }
 }
 
 export default HomeScreen;
