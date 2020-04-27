@@ -1,4 +1,3 @@
-import { Dimensions } from "react-native";
 import Constants from "./Constants.js";
 
 export default BadgeConstants = {

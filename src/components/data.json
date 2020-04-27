@@ -8,19 +8,19 @@
       {
         "badgeID": 1,
         "badgeName": "Lesson 1 Completed",
-        "badgeImage": "",
+        "badgeImage": "../assets/badges/locked.png",
         "badgeState": false
       },
       {
         "badgeID": 2,
         "badgeName": "Lesson 2 Completed",
-        "badgeImage": "",
+        "badgeImage": "../assets/badges/locked.png",
         "badgeState": false
       },
       {
         "badgeID": 3,
         "badgeName": "Lesson 3 Completed",
-        "badgeImage": "",
+        "badgeImage": "../assets/badges/locked.png",
         "badgeState": false
       }
     ],
@@ -28,19 +28,19 @@
       {
         "badgeID": 1,
         "badgeName": "Fire World Completed",
-        "badgeImage": "",
+        "badgeImage": "../assets/badges/locked.png",
         "badgeState": false
       },
       {
         "badgeID": 2,
         "badgeName": "Ice World Completed",
-        "badgeImage": "",
+        "badgeImage": "../assets/badges/locked.png",
         "badgeState": false
       },
       {
         "badgeID": 3,
         "badgeName": "Water Completed",
-        "badgeImage": "",
+        "badgeImage": "../assets/badges/locked.png",
         "badgeState": false
       }
     ],
@@ -48,19 +48,19 @@
       {
         "badgeID": 1,
         "badgeName": "5 Day Streak Achieved",
-        "badgeImage": "",
+        "badgeImage": "../assets/badges/locked.png",
         "badgeState": false
       },
       {
         "badgeID": 2,
         "badgeName": "10 Day Streak Achieved",
-        "badgeImage": "",
+        "badgeImage": "../assets/badges/locked.png",
         "badgeState": false
       },
       {
         "badgeID": 3,
         "badgeName": "15 Day Streak Achieved",
-        "badgeImage": "",
+        "badgeImage": "../assets/badges/locked.png",
         "badgeState": false
       }
     ]
