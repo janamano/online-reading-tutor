@@ -5,7 +5,6 @@ import { Text, View, Button, StyleSheet, Image } from "react-native";
 
 // Export displaybadge component
 import DisplayBadge from "../components/DisplayBadge";
-import * as TestConstants from "../components/NewConstants";
 import { updateTestState } from "../components/BadgeHelpers";
 // Simplest Case for now:
 // Badge to be "given" upon completion of lesson
@@ -46,8 +45,6 @@ const BadgeScreen = (props) => {
         onPress={() => {
           props.navigation.navigate("Home");
           console.log(props.badges);
-          console.log(TestConstants.customData);
-          updateTestState();
           // updateTestState(DATA_OBJ);
           // "badges" is as follows
           // [0] -> [0] -> {badgeId: .. , badgeName: .. , badgeState: ..}

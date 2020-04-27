@@ -1,7 +1,6 @@
 import * as React from "react";
 // import constants
 import Constants from "./Constants";
-import * as TestConstants from "./NewConstants";
 import { Text, View, Button, Alert, Image } from "react-native";
 // Any helper function for the badges part goes here
 
@@ -149,9 +148,4 @@ export const updateBadgeState = (badgeComponent, badgeID) => {
       break;
     }
   }
-};
-
-export const updateTestState = () => { 
-  TestConstants.customData.name="hola";
-  console.log(TestConstants.customData);
 };
