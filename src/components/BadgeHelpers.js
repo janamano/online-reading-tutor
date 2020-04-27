@@ -1,6 +1,8 @@
 import * as React from "react";
 // import constants
 import Constants from "./Constants";
+import * as DataObject from "./NewConstants";
+
 import { Text, View, Button, Alert, Image } from "react-native";
 // Any helper function for the badges part goes here
 
@@ -34,6 +36,56 @@ export const returnImgForID = (badgeID) => {
       return "";
   }
 };
+
+export const returnRawImgForID = (badgeID) => {
+  switch (badgeID) {
+    case Constants.LESSON_COMPLETION_1:
+      return Constants.LESSON_COMPLETION_1_IMG_RAW;
+    case Constants.LESSON_COMPLETION_2:
+      return Constants.LESSON_COMPLETION_2_IMG_RAW;
+    case Constants.LESSON_COMPLETION_3:
+      return Constants.LESSON_COMPLETION_3_IMG_RAW;
+    case Constants.WORLD_COMPLETION_FIRE:
+      return Constants.WORLD_COMPLETION_FIRE_IMG_RAW;
+    case Constants.WORLD_COMPLETION_ICE:
+      return Constants.WORLD_COMPLETION_ICE_IMG_RAW;
+    case Constants.WORLD_COMPLETION_WATER:
+      return Constants.WORLD_COMPLETION_WATER_IMG_RAW;
+    case Constants.STREAKS_5_DAY:
+      return Constants.STREAKS_5_DAY_IMG_RAW;
+    case Constants.STREAKS_10_DAY:
+      return Constants.STREAKS_10_DAY_IMG_RAW;
+    case Constants.STREAKS_15_DAY:
+      return Constants.STREAKS_15_DAY_IMG_RAW;
+    default:
+      return "";
+  }
+}
+
+export const returnImgForRawImgName = (rawImageName) => {
+  switch (rawImageName) {
+    case Constants.LESSON_COMPLETION_1_IMG_RAW:
+      return Constants.LESSON_COMPLETION_1_IMG;
+    case Constants.LESSON_COMPLETION_2_IMG_RAW:
+      return Constants.LESSON_COMPLETION_2_IMG;
+    case Constants.LESSON_COMPLETION_3_IMG_RAW:
+      return Constants.LESSON_COMPLETION_3_IMG;
+    case Constants.WORLD_COMPLETION_FIRE_IMG_RAW:
+      return Constants.WORLD_COMPLETION_FIRE_IMG;
+    case Constants.WORLD_COMPLETION_ICE_IMG_RAW:
+      return Constants.WORLD_COMPLETION_ICE_IMG;
+    case Constants.WORLD_COMPLETION_WATER_IMG_RAW:
+      return Constants.WORLD_COMPLETION_WATER_IMG;
+    case Constants.STREAKS_5_DAY_IMG_RAW:
+      return Constants.STREAKS_5_DAY_IMG;
+    case Constants.STREAKS_10_DAY_IMG_RAW:
+      return Constants.STREAKS_10_DAY_IMG;
+    case Constants.STREAKS_15_DAY_IMG_RAW:
+      return Constants.STREAKS_15_DAY_IMG;
+    default:
+      return Constants.BADGE_LOCKED_IMG;
+  }
+}
 
 // Returns a Badge Name for the corresponding Badge ID
 export const returnBadgeNameForID = (badgeID) => {
@@ -83,7 +135,7 @@ export const renderWorldBadges = (world_props) => {
     WorldTags.push(
       <Image
         key={world_props[i].badgeName}
-        source={world_props[i].badgeImage}
+        source={returnImgForRawImgName(world_props[i].badgeImage)}
         style={{
           margin: 5,
           width: 100,
@@ -103,7 +155,7 @@ export const renderStreakImages = (streak_props) => {
     StreakTags.push(
       <Image
         key={streak_props[i].badgeName}
-        source={streak_props[i].badgeImage}
+        source={returnImgForRawImgName(streak_props[i].badgeImage)}
         style={{
           margin: 5,
           width: 100,
@@ -123,7 +175,7 @@ export const renderLessonImages = (lesson_props) => {
     MonthTags.push(
       <Image
         key={lesson_props[i].badgeName}
-        source={lesson_props[i].badgeImage}
+        source={returnImgForRawImgName(lesson_props[i].badgeImage)}
         style={{
           margin: 5,
           width: 100,
@@ -138,20 +190,16 @@ export const renderLessonImages = (lesson_props) => {
 
 // Update the badge state
 export const updateBadgeState = (badgeComponent, badgeID) => {
-  for (let i = 0; i < BadgeConstants.BADGES[badgeComponent].length; i++) {
-    if (BadgeConstants.BADGES[badgeComponent][i].badgeID == badgeID) {
-      BadgeConstants.BADGES[badgeComponent][i].badgeState =
+  for (let i = 0; i < DataObject.customData.BADGES[badgeComponent].length; i++) {
+    if (DataObject.customData.BADGES[badgeComponent][i].badgeID == badgeID) {
+      DataObject.customData.BADGES[badgeComponent][i].badgeState =
         Constants.BADGE_ACQUIRED;
-      BadgeConstants.BADGES[badgeComponent][i].badgeImage = returnImgForID(
+      console.log(DataObject.customData);
+      DataObject.customData.BADGES[badgeComponent][i].badgeImage = returnRawImgForID(
         badgeID
       );
+      console.log(DataObject.customData);
       break;
     }
   }
 };
-
-export const returnImgforRawImgName = (rawImgName) => {
-  let srcStr = "../assets/badges/locked.png";
-  let ImageSrc = require(srcStr);
-  return ImageSrc;
-}

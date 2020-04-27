@@ -17,7 +17,7 @@ import MinigameScreen from "./src/screens/MinigameScreen";
 import variables from "./src/styles/variables";
 // import constants
 import Constants from "./src/components/Constants";
-import BadgeConstants from "./src/components/BadgeConstants";
+import * as DataObject from "./src/components/NewConstants";
 import { returnImgForID, updateBadgeState } from "./src/components/BadgeHelpers";
 
 const Stack = createStackNavigator();
@@ -62,7 +62,7 @@ function App() {
           component={MinigameScreen}
         />
         <Stack.Screen name="Badges">
-          {(props) => <BadgeScreen {...props} badges={BadgeConstants.BADGES} />}
+          {(props) => <BadgeScreen {...props} badges={DataObject.customData.BADGES} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
