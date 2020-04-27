@@ -2,7 +2,7 @@ import * as React from "react";
 import Constants from "../components/Constants.js";
 import { Text, View, Button, Alert } from "react-native";
 import { alertBadgeAcquired } from "../components/BadgeHelpers";
-import * as TestConstants from "../components/NewConstants.js";
+
 function LessonScreen(props) {
   return (
     <View>
