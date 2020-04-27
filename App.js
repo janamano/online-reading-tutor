@@ -62,7 +62,7 @@ function App() {
           component={MinigameScreen}
         />
         <Stack.Screen name="Badges">
-          {(props) => <BadgeScreen {...props} badges={DataObject.customData.BADGES} />}
+          {(props) => <BadgeScreen {...props} badges={DataObject.Data.BADGES} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>

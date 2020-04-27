@@ -190,15 +190,13 @@ export const renderLessonImages = (lesson_props) => {
 
 // Update the badge state
 export const updateBadgeState = (badgeComponent, badgeID) => {
-  for (let i = 0; i < DataObject.customData.BADGES[badgeComponent].length; i++) {
-    if (DataObject.customData.BADGES[badgeComponent][i].badgeID == badgeID) {
-      DataObject.customData.BADGES[badgeComponent][i].badgeState =
+  for (let i = 0; i < DataObject.Data.BADGES[badgeComponent].length; i++) {
+    if (DataObject.Data.BADGES[badgeComponent][i].badgeID == badgeID) {
+      DataObject.Data.BADGES[badgeComponent][i].badgeState =
         Constants.BADGE_ACQUIRED;
-      console.log(DataObject.customData);
-      DataObject.customData.BADGES[badgeComponent][i].badgeImage = returnRawImgForID(
+      DataObject.Data.BADGES[badgeComponent][i].badgeImage = returnRawImgForID(
         badgeID
       );
-      console.log(DataObject.customData);
       break;
     }
   }

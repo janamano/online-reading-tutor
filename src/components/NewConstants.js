@@ -1,1 +1,1 @@
-export const customData = require("./data.json");
+export const Data = require("./data.json");
