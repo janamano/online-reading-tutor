@@ -59,7 +59,6 @@ export const returnBadgeNameForID = (badgeID) => {
   }
 };
 
-
 // Show an alert saying you've got a badge
 export const alertBadgeAcquired = (badgeID) => {
   let badgeName = returnBadgeNameForID(badgeID);
@@ -139,6 +138,14 @@ export const renderLessonImages = (lesson_props) => {
 
 // Update the badge state
 export const updateBadgeState = (badgeComponent, badgeID) => {
-    BadgeConstants.BADGES[badgeComponent][badgeID].badgeState = Constants.BADGE_ACQUIRED;
-    BadgeConstants.BADGES[badgeComponent][badgeID].badgeImage = returnImgForID(badgeID);
+  for (let i = 0; i < BadgeConstants.BADGES[badgeComponent].length; i++) {
+    if (BadgeConstants.BADGES[badgeComponent][i].badgeID == badgeID) {
+      BadgeConstants.BADGES[badgeComponent][i].badgeState =
+        Constants.BADGE_ACQUIRED;
+      BadgeConstants.BADGES[badgeComponent][i].badgeImage = returnImgForID(
+        badgeID
+      );
+      break;
+    }
+  }
 };
