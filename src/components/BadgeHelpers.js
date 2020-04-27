@@ -149,3 +149,9 @@ export const updateBadgeState = (badgeComponent, badgeID) => {
     }
   }
 };
+
+export const returnImgforRawImgName = (rawImgName) => {
+  let srcStr = "../assets/badges/locked.png";
+  let ImageSrc = require(srcStr);
+  return ImageSrc;
+}
