@@ -2,6 +2,8 @@ import * as React from "react";
 // import constants
 import Constants from "./Constants";
 import * as DataObject from "./NewConstants";
+// Import asyncstorage
+import AsyncStorage from '@react-native-community/async-storage';
 
 import { Text, View, Button, Alert, Image } from "react-native";
 // Any helper function for the badges part goes here
@@ -188,6 +190,32 @@ export const renderLessonImages = (lesson_props) => {
   return MonthTags;
 };
 
+export const storeData = async () => {
+  try {
+    await AsyncStorage.setItem("data", JSON.stringify(DataObject.Data));
+  } catch (e) {
+    // Store failed
+    console.log(e);
+    // save error
+  }
+}
+
+export const getData = async () => {
+  try {
+    const value = await AsyncStorage.getItem("data");
+    if(value !== null) {
+      console.log("value previously stored");
+      console.log(value);
+    } else {
+      console.log("value previously not stored");
+      console.log(value);
+    }
+  } catch(e) {
+    console.log(e);
+    // error reading value
+  }
+}
+
 // Update the badge state
 export const updateBadgeState = (badgeComponent, badgeID) => {
   for (let i = 0; i < DataObject.Data.BADGES[badgeComponent].length; i++) {
@@ -200,4 +228,6 @@ export const updateBadgeState = (badgeComponent, badgeID) => {
       break;
     }
   }
+
+  storeData();
 };

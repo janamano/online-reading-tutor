@@ -20,6 +20,9 @@ import Constants from "./src/components/Constants";
 import * as DataObject from "./src/components/NewConstants";
 import { returnImgForID, updateBadgeState } from "./src/components/BadgeHelpers";
 
+// Import asyncstorage
+import AsyncStorage from '@react-native-community/async-storage';
+
 const Stack = createStackNavigator();
 
 function App() {
