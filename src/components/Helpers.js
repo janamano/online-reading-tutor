@@ -40,6 +40,7 @@ export const returnImgForID = (badgeID) => {
   }
 };
 
+// Returns the raw image name for the id
 export const returnRawImgForID = (badgeID) => {
   switch (badgeID) {
     case Constants.LESSON_COMPLETION_1:
@@ -65,6 +66,7 @@ export const returnRawImgForID = (badgeID) => {
   }
 };
 
+// Returns an actual react-native img source for the id
 export const returnImgForRawImgName = (rawImageName) => {
   switch (rawImageName) {
     case Constants.LESSON_COMPLETION_1_IMG_RAW:
@@ -132,6 +134,7 @@ export const alertBadgeAcquired = (badgeID) => {
   );
 };
 
+// Renders all "World" badges
 export const renderWorldBadges = (world_props) => {
   let WorldTags = [];
   for (let i = 0; i < world_props.length; i++) {
@@ -151,7 +154,7 @@ export const renderWorldBadges = (world_props) => {
   return WorldTags;
 };
 
-// Render Streak Badges
+// Render all "Streak" Badges
 export const renderStreakImages = (streak_props) => {
   let StreakTags = [];
   for (let i = 0; i < streak_props.length; i++) {
@@ -171,7 +174,7 @@ export const renderStreakImages = (streak_props) => {
   return StreakTags;
 };
 
-// Render Lesson Badges
+// Render all "Lesson" Badges
 export const renderLessonImages = (lesson_props) => {
   let MonthTags = [];
   let data = "";
@@ -192,6 +195,8 @@ export const renderLessonImages = (lesson_props) => {
   return MonthTags;
 };
 
+// Helper function to store a the main data object
+// into AsyncStorage
 export const storeData = async () => {
   try {
     const dataStore = await AsyncStorage.setItem(
@@ -206,6 +211,8 @@ export const storeData = async () => {
   }
 };
 
+// Startup function - Anything that needs to happen
+// before rendering anything
 export const startUp = async () => {
   // Set initial, otherwise retrieve latest
   try {
@@ -238,5 +245,16 @@ export const updateBadgeState = (badgeComponent, badgeID) => {
     }
   }
 
+  // Make a call to storeData to update the storage
   storeData();
 };
+
+export const updateStreaks = () => {
+  // Do your update to DataObject.Data
+  // storeData()
+}
+
+export const worldCompletion = (worldID) => {
+  // Do your update to DataObject.Data
+  // storeData()
+}

@@ -14,7 +14,7 @@ function LessonScreen(props) {
           props.navigation.navigate("Home");
           props.badgeUpdate.updateBadgeState(
             Constants.LESSON_COMPLETION,
-            Constants.LESSON_COMPLETION_2
+            Constants.LESSON_COMPLETION_1
           );
         }}
       ></Button>

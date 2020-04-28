@@ -4,8 +4,7 @@ import { Text, View, Button, Image, StyleSheet } from "react-native";
 import {
   renderWorldBadges,
   renderStreakImages,
-  renderLessonImages,
-  getData,
+  renderLessonImages
 } from "../components/Helpers.js";
 
 const DisplayBadge = (props) => {
