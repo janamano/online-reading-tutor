@@ -2,7 +2,6 @@ import * as React from "react";
 
 // for the navigation
 import "react-native-gesture-handler";
-// Import asyncstorage
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 

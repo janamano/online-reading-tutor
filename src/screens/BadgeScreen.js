@@ -4,7 +4,7 @@ import { Text, View, Button, StyleSheet, Image } from "react-native";
 
 // Export displaybadge component
 import DisplayBadge from "../components/DisplayBadge";
-import { getData, storeData } from "../components/Helpers.js";
+
 // Simplest Case for now:
 // Badge to be "given" upon completion of lesson
 
@@ -44,8 +44,6 @@ const BadgeScreen = (props) => {
         onPress={() => {
           props.navigation.navigate("Home");
           console.log(props.badges);
-          // storeData();
-          // getData();
           // "badges" is as follows
           // [0] -> [0] -> {badgeId: .. , badgeName: .. , badgeState: ..}
           //     -> [1] -> {badgeId: .. , badgeName: .. , badgeState: ..}
