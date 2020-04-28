@@ -5,7 +5,8 @@ import {
   renderWorldBadges,
   renderStreakImages,
   renderLessonImages,
-} from "../components/BadgeHelpers.js";
+  getData,
+} from "../components/Helpers.js";
 
 const DisplayBadge = (props) => {
   // props is the badges object:

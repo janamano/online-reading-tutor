@@ -1,7 +1,7 @@
 import * as React from "react";
 import Constants from "../components/Constants.js";
 import { Text, View, Button, Alert } from "react-native";
-import { alertBadgeAcquired } from "../components/BadgeHelpers";
+import { alertBadgeAcquired } from "../components/Helpers";
 
 function LessonScreen(props) {
   return (
@@ -14,7 +14,7 @@ function LessonScreen(props) {
           props.navigation.navigate("Home");
           props.badgeUpdate.updateBadgeState(
             Constants.LESSON_COMPLETION,
-            Constants.LESSON_COMPLETION_1
+            Constants.LESSON_COMPLETION_2
           );
         }}
       ></Button>

@@ -3,10 +3,11 @@ import * as React from "react";
 import Constants from "./Constants";
 import * as DataObject from "./NewConstants";
 // Import asyncstorage
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from "@react-native-community/async-storage";
 
 import { Text, View, Button, Alert, Image } from "react-native";
-// Any helper function for the badges part goes here
+
+// Generic helper functions that can be used anywhere
 
 // This is bad. This should have been coupled with the
 // id in the above object. But I didn't do it initially,
@@ -62,7 +63,7 @@ export const returnRawImgForID = (badgeID) => {
     default:
       return "";
   }
-}
+};
 
 export const returnImgForRawImgName = (rawImageName) => {
   switch (rawImageName) {
@@ -87,7 +88,7 @@ export const returnImgForRawImgName = (rawImageName) => {
     default:
       return Constants.BADGE_LOCKED_IMG;
   }
-}
+};
 
 // Returns a Badge Name for the corresponding Badge ID
 export const returnBadgeNameForID = (badgeID) => {
@@ -173,6 +174,7 @@ export const renderStreakImages = (streak_props) => {
 // Render Lesson Badges
 export const renderLessonImages = (lesson_props) => {
   let MonthTags = [];
+  let data = "";
   for (let i = 0; i < lesson_props.length; i++) {
     MonthTags.push(
       <Image
@@ -192,29 +194,36 @@ export const renderLessonImages = (lesson_props) => {
 
 export const storeData = async () => {
   try {
-    await AsyncStorage.setItem("data", JSON.stringify(DataObject.Data));
+    const dataStore = await AsyncStorage.setItem(
+      "data",
+      JSON.stringify(DataObject.Data)
+    );
+    console.log("Data Stored");
   } catch (e) {
     // Store failed
     console.log(e);
     // save error
   }
-}
+};
 
-export const getData = async () => {
+export const startUp = async () => {
+  // Set initial, otherwise retrieve latest
   try {
-    const value = await AsyncStorage.getItem("data");
-    if(value !== null) {
-      console.log("value previously stored");
-      console.log(value);
+    const data = await AsyncStorage.getItem("data");
+    console.log("Promimse returned\n");
+    if (data != null) {
+      DataObject.Data = JSON.parse(data);
     } else {
-      console.log("value previously not stored");
-      console.log(value);
+      const setFirstTimeData = await AsyncStorage.setItem(
+        "data",
+        JSON.stringify(DataObject.Data)
+      );
+      // console.log("P");
     }
-  } catch(e) {
+  } catch (e) {
     console.log(e);
-    // error reading value
   }
-}
+};
 
 // Update the badge state
 export const updateBadgeState = (badgeComponent, badgeID) => {

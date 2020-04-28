@@ -2,6 +2,7 @@ import * as React from "react";
 
 // for the navigation
 import "react-native-gesture-handler";
+// Import asyncstorage
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -15,17 +16,15 @@ import MinigameScreen from "./src/screens/MinigameScreen";
 
 // import styles
 import variables from "./src/styles/variables";
-// import constants
-import Constants from "./src/components/Constants";
 import * as DataObject from "./src/components/NewConstants";
-import { returnImgForID, updateBadgeState } from "./src/components/BadgeHelpers";
-
-// Import asyncstorage
-import AsyncStorage from '@react-native-community/async-storage';
+import { updateBadgeState, startUp } from "./src/components/Helpers";
 
 const Stack = createStackNavigator();
 
 function App() {
+  // Start up stuff before rendering anything
+  startUp();
+
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -65,7 +64,9 @@ function App() {
           component={MinigameScreen}
         />
         <Stack.Screen name="Badges">
-          {(props) => <BadgeScreen {...props} badges={DataObject.Data.BADGES} />}
+          {(props) => (
+            <BadgeScreen {...props} badges={DataObject.Data.BADGES} />
+          )}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
