@@ -15,7 +15,6 @@ import Constants from './Constants';
 export default class CarouselCards extends React.Component {
   constructor(props) {
     super(props);
-    let test = DataObject.Data.lesson_completion_per_world;
     this.goToFire = this.goToFire.bind(this);
     this.state = {
       activeIndex: 0,

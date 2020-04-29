@@ -137,7 +137,6 @@ export const returnBadgeNameForID = (badgeID) => {
 // Show an alert saying you've got a badge.
 // Params: input - a string which is the badge description
 export const alertBadgeAcquired = (badgeDesc) => {
-  // let badgeName = returnBadgeNameForID(badgeID);
   let badgeName = badgeDesc;
   // Add excalamation point at the end
   badgeName += "!";
@@ -238,7 +237,6 @@ export const updateStreaksCount = () => {
 export const checkAndIssueStreaksBadge = () => {
   // debugger;
   let count = DataObject.Data.streak;
-  console.log("Count is " + count);
   // Index to badges array
   // [0] -> 5 day streak
   // [1] -> 10 day streak
@@ -280,7 +278,6 @@ export const startUp = async () => {
         "data",
         JSON.stringify(DataObject.Data)
       );
-      // console.log("P");
     }
   } catch (e) {
     console.log(e);
@@ -348,7 +345,6 @@ export const updateLessonAndWorldCompletion = (parentWorld) => {
 // Sets the badgeState to true for all the worldBadges
 // if all lessons in a world are completed
 export const checkAndIssueWorldBadge = () => {
-  let worldBadges = DataObject.Data.BADGES[Constants.WORLD_COMPLETION];
   // This is really bad, doing it one by one
   // but I'm tired and I don't want to think
   let isFireWorldCompleted = DataObject.Data.lesson_completion_per_world.fire_world["world_completed"];
