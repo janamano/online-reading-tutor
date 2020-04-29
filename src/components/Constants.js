@@ -87,5 +87,5 @@ export default Constants = {
   CURRENT_LESSON_PARENT: "None",
 
   // Total Lessons placeholder for now
-  TOTAL_LESSONS: 3
+  TOTAL_LESSONS: 1
 };

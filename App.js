@@ -16,14 +16,13 @@ import MinigameScreen from "./src/screens/MinigameScreen";
 // import styles
 import variables from "./src/styles/variables";
 import * as DataObject from "./src/components/NewConstants";
-import { updateBadgeState, startUp } from "./src/components/Helpers";
+import { startUp } from "./src/components/Helpers";
 
 const Stack = createStackNavigator();
 
 function App() {
   // Start up stuff before rendering anything
   startUp();
-
   return (
     <NavigationContainer>
       <Stack.Navigator

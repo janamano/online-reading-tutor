@@ -157,7 +157,6 @@ export const alertBadgeAcquired = (badgeDesc) => {
 // Renders all "World" badges
 export const renderWorldBadges = (world_props) => {
   let WorldTags = [];
-  console.log(world_props.length);
   for (let i = 0; i < world_props.length; i++) {
     WorldTags.push(
       <Image
@@ -232,16 +231,51 @@ export const storeData = async () => {
   }
 };
 
+export const updateStreaksCount = () => {
+  DataObject.Data.streak = DataObject.Data.streak + 1;
+}
+
+export const checkAndIssueStreaksBadge = () => {
+  // debugger;
+  let count = DataObject.Data.streak;
+  console.log("Count is " + count);
+  // Index to badges array
+  // [0] -> 5 day streak
+  // [1] -> 10 day streak
+  // [2] -> 15 day streak
+
+  switch(count) {
+    case 5: 
+      DataObject.Data.BADGES[Constants.STREAKS][0].badgeState = Constants.BADGE_ACQUIRED;
+      DataObject.Data.BADGES[Constants.STREAKS][0].badgeImage = Constants.STREAKS_5_DAY_IMG_RAW;
+      alertBadgeAcquired("5 day streak badge");
+      break;
+    case 10:
+      DataObject.Data.BADGES[Constants.STREAKS][1].badgeState = Constants.BADGE_ACQUIRED;
+      DataObject.Data.BADGES[Constants.STREAKS][1].badgeImage = Constants.STREAKS_10_DAY_IMG_RAW;
+      alertBadgeAcquired("10 day streak badge");
+      break;
+    case 15:
+      DataObject.Data.BADGES[Constants.STREAKS][2].badgeState = Constants.BADGE_ACQUIRED;
+      DataObject.Data.BADGES[Constants.STREAKS][2].badgeImage = Constants.STREAKS_15_DAY_IMG_RAW;
+      alertBadgeAcquired("15 day streak badge");
+      break;
+    default:
+      break;
+  }
+}
+
 // Startup function - Anything that needs to happen
 // before rendering anything
 export const startUp = async () => {
   // Set initial, otherwise retrieve latest
   try {
     const data = await AsyncStorage.getItem("data");
-    console.log("Promise returned\n");
     if (data != null) {
+      console.log("Data already exists\n");
       DataObject.Data = JSON.parse(data);
     } else {
+      console.log("Data is new\n");
       const setFirstTimeData = await AsyncStorage.setItem(
         "data",
         JSON.stringify(DataObject.Data)
@@ -325,13 +359,13 @@ export const checkAndIssueWorldBadge = () => {
   // Update fire world badge state
   if(isFireWorldCompleted) {
     DataObject.Data.BADGES[Constants.WORLD_COMPLETION][0].badgeState = Constants.BADGE_ACQUIRED;
-    DataObject.Data.BADGES[Constants.WORLD_COMPLETION][0].badgeImage = returnRawImgForID(Constants.WORLD_COMPLETION_FIRE); 
+    DataObject.Data.BADGES[Constants.WORLD_COMPLETION][0].badgeImage = Constants.WORLD_COMPLETION_FIRE_IMG_RAW;
   }
 
   // Update ice world badge state
   if(isIceWorldCompleted) {
     DataObject.Data.BADGES[Constants.WORLD_COMPLETION][1].badgeState = Constants.BADGE_ACQUIRED;
-    DataObject.Data.BADGES[Constants.WORLD_COMPLETION][1].badgeImage = returnRawImgForID(Constants.WORLD_COMPLETION_ICE);
+    DataObject.Data.BADGES[Constants.WORLD_COMPLETION][1].badgeImage = Constants.WORLD_COMPLETION_ICE_IMG_RAW;
 
   }
 
@@ -342,14 +376,13 @@ export const checkAndIssueWorldBadge = () => {
   // Update jungle world badge state
   if(isJungleWorldCompleted) {
     DataObject.Data.BADGES[Constants.WORLD_COMPLETION][3].badgeState = Constants.BADGE_ACQUIRED;
-    DataObject.Data.BADGES[Constants.WORLD_COMPLETION][3].badgeImage = returnRawImgForID(Constants.WORLD_COMPLETION_JUNGLE);
-
+    DataObject.Data.BADGES[Constants.WORLD_COMPLETION][3].badgeImage = Constants.WORLD_COMPLETION_JUNGLE_IMG_RAW;
   }
 
   // Update alien world badge state
   if(isAlienWorldCompleted) {
     DataObject.Data.BADGES[Constants.WORLD_COMPLETION][4].badgeState = Constants.BADGE_ACQUIRED;
-    DataObject.Data.BADGES[Constants.WORLD_COMPLETION][4].badgeImage = returnRawImgForID(Constants.WORLD_COMPLETION_ALIEN);
+    DataObject.Data.BADGES[Constants.WORLD_COMPLETION][4].badgeImage = Constants.WORLD_COMPLETION_ALIEN_IMG_RAW;
   }
 }
 
@@ -357,7 +390,3 @@ export const setCurrentLessonParentWorld = (worldNameForLesson) => {
   // Set the current lesson's parent here
   Constants.CURRENT_LESSON_PARENT = worldNameForLesson;
 }
-
-export const updateStreaks = () => {
-  // Do your update to DataObject.Data.streaks
-};
