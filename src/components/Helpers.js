@@ -15,6 +15,7 @@ import { Text, View, Button, Alert, Image } from "react-native";
 // I sad :(
 
 // Returns an Image for the corresponding Badge ID
+// Params: input - ID defined in Constants.js
 export const returnImgForID = (badgeID) => {
   switch (badgeID) {
     case Constants.LESSON_COMPLETION_1:
@@ -25,10 +26,14 @@ export const returnImgForID = (badgeID) => {
       return Constants.LESSON_COMPLETION_3_IMG;
     case Constants.WORLD_COMPLETION_FIRE:
       return Constants.WORLD_COMPLETION_FIRE_IMG;
-    case Constants.WORLD_COMPLETION_ICE:
-      return Constants.WORLD_COMPLETION_ICE_IMG;
     case Constants.WORLD_COMPLETION_WATER:
       return Constants.WORLD_COMPLETION_WATER_IMG;
+    case Constants.WORLD_COMPLETION_ICE:
+      return Constants.WORLD_COMPLETION_ICE_IMG;
+    case Constants.WORLD_COMPLETION_JUNGLE:
+      return Constants.WORLD_COMPLETION_JUNGLE_IMG;
+    case Constants.WORLD_COMPLETION_ALIEN:
+      return Constants.WORLD_COMPLETION_ALIEN_IMG;
     case Constants.STREAKS_5_DAY:
       return Constants.STREAKS_5_DAY_IMG;
     case Constants.STREAKS_10_DAY:
@@ -41,6 +46,7 @@ export const returnImgForID = (badgeID) => {
 };
 
 // Returns the raw image name for the id
+// Params: input - An id defined in Constants.js 
 export const returnRawImgForID = (badgeID) => {
   switch (badgeID) {
     case Constants.LESSON_COMPLETION_1:
@@ -55,6 +61,10 @@ export const returnRawImgForID = (badgeID) => {
       return Constants.WORLD_COMPLETION_ICE_IMG_RAW;
     case Constants.WORLD_COMPLETION_WATER:
       return Constants.WORLD_COMPLETION_WATER_IMG_RAW;
+    case Constants.WORLD_COMPLETION_JUNGLE:
+      return Constants.WORLD_COMPLETION_JUNGLE_IMG_RAW;
+    case Constants.WORLD_COMPLETION_ALIEN:
+      return Constants.WORLD_COMPLETION_ALIEN_IMG_RAW;
     case Constants.STREAKS_5_DAY:
       return Constants.STREAKS_5_DAY_IMG_RAW;
     case Constants.STREAKS_10_DAY:
@@ -81,6 +91,10 @@ export const returnImgForRawImgName = (rawImageName) => {
       return Constants.WORLD_COMPLETION_ICE_IMG;
     case Constants.WORLD_COMPLETION_WATER_IMG_RAW:
       return Constants.WORLD_COMPLETION_WATER_IMG;
+    case Constants.WORLD_COMPLETION_JUNGLE_IMG_RAW:
+      return Constants.WORLD_COMPLETION_JUNGLE_IMG;
+    case Constants.WORLD_COMPLETION_ALIEN_IMG_RAW:
+      return Constants.WORLD_COMPLETION_ALIEN_IMG;
     case Constants.STREAKS_5_DAY_IMG_RAW:
       return Constants.STREAKS_5_DAY_IMG;
     case Constants.STREAKS_10_DAY_IMG_RAW:
@@ -107,6 +121,10 @@ export const returnBadgeNameForID = (badgeID) => {
       return Constants.WORLD_COMPLETION_ICE_BADGE;
     case Constants.WORLD_COMPLETION_WATER:
       return Constants.WORLD_COMPLETION_WATER_BADGE;
+    case Constants.WORLD_COMPLETION_JUNGLE:
+      return Constants.WORLD_COMPLETION_JUNGLE_BADGE;
+    case Constants.WORLD_COMPLETION_ALIEN:
+      return Constants.WORLD_COMPLETION_ALIEN_BADGE;
     case Constants.STREAKS_5_DAY:
       return Constants.STREAKS_5_DAY_BADGE;
     case Constants.STREAKS_10_DAY:
@@ -116,9 +134,11 @@ export const returnBadgeNameForID = (badgeID) => {
   }
 };
 
-// Show an alert saying you've got a badge
-export const alertBadgeAcquired = (badgeID) => {
-  let badgeName = returnBadgeNameForID(badgeID);
+// Show an alert saying you've got a badge.
+// Params: input - a string which is the badge description
+export const alertBadgeAcquired = (badgeDesc) => {
+  // let badgeName = returnBadgeNameForID(badgeID);
+  let badgeName = badgeDesc;
   // Add excalamation point at the end
   badgeName += "!";
   Alert.alert(
@@ -147,7 +167,7 @@ export const renderWorldBadges = (world_props) => {
           margin: 5,
           width: 100,
           height: 100,
-          opacity: world_props.badgeState ? 1 : 0.5,
+          opacity: world_props[i].badgeState ? 1 : 0.5,
         }}
       />
     );
@@ -196,7 +216,7 @@ export const renderLessonImages = (lesson_props) => {
   return MonthTags;
 };
 
-// Helper function to store a the main data object
+// Helper function to store the main data object
 // into AsyncStorage
 export const storeData = async () => {
   try {
@@ -218,7 +238,7 @@ export const startUp = async () => {
   // Set initial, otherwise retrieve latest
   try {
     const data = await AsyncStorage.getItem("data");
-    console.log("Promimse returned\n");
+    console.log("Promise returned\n");
     if (data != null) {
       DataObject.Data = JSON.parse(data);
     } else {
@@ -233,6 +253,11 @@ export const startUp = async () => {
   }
 };
 
+// Make a call to storeData to update the storage
+export const storeWrapper = () => {
+  storeData();
+}
+
 // Update the badge state
 export const updateBadgeState = (badgeComponent, badgeID) => {
   for (let i = 0; i < DataObject.Data.BADGES[badgeComponent].length; i++) {
@@ -245,17 +270,94 @@ export const updateBadgeState = (badgeComponent, badgeID) => {
       break;
     }
   }
-
-  // Make a call to storeData to update the storage
-  storeData();
+  alertBadgeAcquired("a lesson badge");
 };
+
+// This function updates the number of lessons completed
+// It also updates the world completion status to true if all lessons in a world are completed
+export const updateLessonAndWorldCompletion = (parentWorld) => {
+  let lessons_count = -1;
+  switch(parentWorld) {
+    case "fire_world":
+      lessons_count = DataObject.Data.lesson_completion_per_world.fire_world["lessons_completed"] + 1;
+      // Only update if less than total lessons
+      if (lessons_count < Constants.TOTAL_LESSONS)
+        DataObject.Data.lesson_completion_per_world.fire_world["lessons_completed"] = lessons_count;
+      // If we've reached the ttoal don't update anymore, just set completion status to true
+      else if (lessons_count == Constants.TOTAL_LESSONS)
+        DataObject.Data.lesson_completion_per_world.fire_world["world_completed"] = true;
+      break;
+    case "ice_world":
+      lessons_count = DataObject.Data.lesson_completion_per_world.ice_world["lessons_completed"] + 1;
+      if (lessons_count < Constants.TOTAL_LESSONS)
+        DataObject.Data.lesson_completion_per_world.ice_world["lessons_completed"] = lessons_count;
+      else if (lessons_count == Constants.TOTAL_LESSONS)
+        DataObject.Data.lesson_completion_per_world.ice_world["world_completed"] = true;
+      break;
+    case "jungle_world":
+      lessons_count = DataObject.Data.lesson_completion_per_world.jungle_world["lessons_completed"] + 1;
+      if (lessons_count < Constants.TOTAL_LESSONS)
+        DataObject.Data.lesson_completion_per_world.jungle_world["lessons_completed"] = lessons_count;
+      else if (lessons_count == Constants.TOTAL_LESSONS)
+        DataObject.Data.lesson_completion_per_world.jungle_world["world_completed"] = true;
+      break;
+    case "alien_world":
+      lessons_count = DataObject.Data.lesson_completion_per_world.alien_world["lessons_completed"] + 1;
+      if (lessons_count < Constants.TOTAL_LESSONS)
+        DataObject.Data.lesson_completion_per_world.alien_world["lessons_completed"] = lessons_count;
+      else if (lessons_count == Constants.TOTAL_LESSONS)
+        DataObject.Data.lesson_completion_per_world.alien_world["world_completed"] = true;
+      break;
+  }
+}
+
+// Sets the badgeState to true for all the worldBadges
+// if all lessons in a world are completed
+export const checkAndIssueWorldBadge = () => {
+  let worldBadges = DataObject.Data.BADGES[Constants.WORLD_COMPLETION];
+  // This is really bad, doing it one by one
+  // but I'm tired and I don't want to think
+  let isFireWorldCompleted = DataObject.Data.lesson_completion_per_world.fire_world["world_completed"];
+  let isIceWorldCompleted = DataObject.Data.lesson_completion_per_world.ice_world["world_completed"];
+  let isJungleWorldCompleted = DataObject.Data.lesson_completion_per_world.jungle_world["world_completed"];
+  let isAlienWorldCompleted = DataObject.Data.lesson_completion_per_world.alien_world["world_completed"]
+
+  // Update fire world badge state
+  if(isFireWorldCompleted) {
+    DataObject.Data.BADGES[Constants.WORLD_COMPLETION][0].badgeState = Constants.BADGE_ACQUIRED;
+    DataObject.Data.BADGES[Constants.WORLD_COMPLETION][0].badgeImage = returnRawImgForID(Constants.WORLD_COMPLETION_FIRE); 
+  }
+
+  // Update ice world badge state
+  if(isIceWorldCompleted) {
+    DataObject.Data.BADGES[Constants.WORLD_COMPLETION][1].badgeState = Constants.BADGE_ACQUIRED;
+    DataObject.Data.BADGES[Constants.WORLD_COMPLETION][1].badgeImage = returnRawImgForID(Constants.WORLD_COMPLETION_ICE);
+
+  }
+
+  // *** Water World
+  // ...
+  // *** Water World
+
+  // Update jungle world badge state
+  if(isJungleWorldCompleted) {
+    DataObject.Data.BADGES[Constants.WORLD_COMPLETION][3].badgeState = Constants.BADGE_ACQUIRED;
+    DataObject.Data.BADGES[Constants.WORLD_COMPLETION][3].badgeImage = returnRawImgForID(Constants.WORLD_COMPLETION_JUNGLE);
+
+  }
+
+  // Update alien world badge state
+  if(isAlienWorldCompleted) {
+    DataObject.Data.BADGES[Constants.WORLD_COMPLETION][4].badgeState = Constants.BADGE_ACQUIRED;
+    DataObject.Data.BADGES[Constants.WORLD_COMPLETION][4].badgeImage = returnRawImgForID(Constants.WORLD_COMPLETION_ALIEN);
+  }
+}
+
+export const setCurrentLessonParentWorld = (worldNameForLesson) => {
+  // Set the current lesson's parent here
+  Constants.CURRENT_LESSON_PARENT = worldNameForLesson;
+}
 
 export const updateStreaks = () => {
-  // Do your update to DataObject.Data
-  // storeData()
-};
-
-export const worldCompletion = (worldID) => {
-  // Do your update to DataObject.Data
-  // storeData()
+  // Do your update to DataObject.Data.streaks
 };

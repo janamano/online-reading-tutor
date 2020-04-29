@@ -14,6 +14,8 @@ export default Constants = {
   FIRE_WORLD_KEY: "fire_world",
   ICE_WORLD_KEY: "ice_world",
   WATER_WORLD_KEY: "water_world",
+  JUNGLE_WORLD_KEY: "jungle_world",
+  ALIEN_WORLD_KEY: "alien_world",
 
   // Invidividual Lesson Badges
   LESSON_COMPLETION_1: 1,
@@ -80,4 +82,10 @@ export default Constants = {
   // Badge States - Default is unaquired (i.e. "greyed out")
   BADGE_DEFAULT: false,
   BADGE_ACQUIRED: true,
+
+  // Which world the lesson belongs to
+  CURRENT_LESSON_PARENT: "None",
+
+  // Total Lessons placeholder for now
+  TOTAL_LESSONS: 3
 };

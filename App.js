@@ -54,7 +54,7 @@ function App() {
         />
         <Stack.Screen name="Lesson">
           {(props) => (
-            <LessonScreen {...props} badgeUpdate={{ updateBadgeState }} />
+            <LessonScreen {...props}/>
           )}
         </Stack.Screen>
         <Stack.Screen
