@@ -291,8 +291,10 @@ export const storeWrapper = () => {
 
 // Update the badge state
 export const updateBadgeState = (badgeComponent, badgeID) => {
+  let prevBadgeState;
   for (let i = 0; i < DataObject.Data.BADGES[badgeComponent].length; i++) {
     if (DataObject.Data.BADGES[badgeComponent][i].badgeID == badgeID) {
+      prevBadgeState = DataObject.Data.BADGES[badgeComponent][i].badgeState;
       DataObject.Data.BADGES[badgeComponent][i].badgeState =
         Constants.BADGE_ACQUIRED;
       DataObject.Data.BADGES[badgeComponent][i].badgeImage = returnRawImgForID(
@@ -301,7 +303,9 @@ export const updateBadgeState = (badgeComponent, badgeID) => {
       break;
     }
   }
-  alertBadgeAcquired("a lesson badge");
+
+  if(! prevBadgeState)
+    alertBadgeAcquired("a lesson badge");
 };
 
 // This function updates the number of lessons completed
