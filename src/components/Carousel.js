@@ -8,35 +8,39 @@ import {
 import Carousel from "react-native-snap-carousel";
 // local components
 import { Button } from "./index";
+import * as DataObject from "./NewConstants";
 
 export default class CarouselCards extends React.Component {
   constructor(props) {
     super(props);
+    debugger;
+    let test = DataObject.Data.lesson_completion_per_world;
+    console.log(DataObject.Data.lesson_completion_per_world);
     this.goToFire = this.goToFire.bind(this);
     this.state = {
       activeIndex: 0,
       carouselItems: [
         {
           title: "Fire World",
-          text: "0/10", // TODO: change to state of lessons completion
+          text: DataObject.Data.lesson_completion_per_world.fire_world["lessons_completed"] + "/10", // TODO: change to state of lessons completion
           index: 1 // TODO: use this to navigate to the right game for each world
 
         },
         {
           title: "Ice World",
-          text: "0/10", // TODO: change to state of lessons completion
+          text: DataObject.Data.lesson_completion_per_world.ice_world["lessons_completed"] + "/10", // TODO: change to state of lessons completion
           index: 2
 
         },
         {
           title: "Jungle World",
-          text: "0/10", // TODO: change to state of lessons completion
+          text: DataObject.Data.lesson_completion_per_world.jungle_world["lessons_completed"] + "/10", // TODO: change to state of lessons completion
           index: 3
 
         },
         {
           title: "Alien World",
-          text: "0/10", // TODO: change to state of lessons completion
+          text: DataObject.Data.lesson_completion_per_world.alien_world["lessons_completed"] + "/10", // TODO: change to state of lessons completion
           index: 4
 
         }

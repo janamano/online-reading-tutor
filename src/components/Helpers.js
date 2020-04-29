@@ -137,6 +137,7 @@ export const alertBadgeAcquired = (badgeID) => {
 // Renders all "World" badges
 export const renderWorldBadges = (world_props) => {
   let WorldTags = [];
+  console.log(world_props.length);
   for (let i = 0; i < world_props.length; i++) {
     WorldTags.push(
       <Image
@@ -252,9 +253,9 @@ export const updateBadgeState = (badgeComponent, badgeID) => {
 export const updateStreaks = () => {
   // Do your update to DataObject.Data
   // storeData()
-}
+};
 
 export const worldCompletion = (worldID) => {
   // Do your update to DataObject.Data
   // storeData()
-}
+};

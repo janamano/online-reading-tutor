@@ -39,7 +39,19 @@
       },
       {
         "badgeID": 3,
-        "badgeName": "Water Completed",
+        "badgeName": "Water World Completed",
+        "badgeImage": "../assets/badges/locked.png",
+        "badgeState": false
+      },
+      {
+        "badgeID": 4,
+        "badgeName": "Jungle World Completed",
+        "badgeImage": "../assets/badges/locked.png",
+        "badgeState": false
+      },
+      {
+        "badgeID": 5,
+        "badgeName": "Alien World Completed",
         "badgeImage": "../assets/badges/locked.png",
         "badgeState": false
       }
@@ -68,6 +80,8 @@
   "lesson_completion_per_world": {
     "fire_world": { "lessons_completed": 0, "world_completed": false },
     "ice_world": { "lessons_completed": 0, "world_completed": false },
-    "water_world": { "lessons_completed": 0, "world_completed": false }
+    "water_world": { "lessons_completed": 0, "world_completed": false },
+    "jungle_world": { "lessons_completed": 0, "world_completed": false },
+    "alien_world": { "lessons_completed": 0, "world_completed": false}
   }
 }

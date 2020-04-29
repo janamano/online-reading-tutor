@@ -36,6 +36,9 @@ const BadgeScreen = (props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Your Badges!</Text>
+      <Text style={styles.subtitle}>
+        Scroll horizontally to see all badges!
+      </Text>
 
       <DisplayBadge badges={props.badges} />
 
@@ -64,9 +67,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffff",
   },
   title: {
-    margin: 20,
+    margin: 5,
     alignSelf: "center",
     fontWeight: "bold",
     fontSize: 30,
+  },
+  subtitle: {
+    margin: 20,
+    alignSelf: "center",
+    fontWeight: "bold",
+    fontSize: 15,
   },
 });
