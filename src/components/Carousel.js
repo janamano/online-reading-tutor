@@ -8,6 +8,9 @@ import {
 import Carousel from "react-native-snap-carousel";
 // local components
 import { Button } from "./index";
+import * as DataObject from "./NewConstants";
+import { setCurrentLessonParentWorld } from "./Helpers";
+import Constants from './Constants';
 
 export default class CarouselCards extends React.Component {
   constructor(props) {
@@ -18,29 +21,28 @@ export default class CarouselCards extends React.Component {
       carouselItems: [
         {
           title: "Fire World",
-          text: "0/10", // TODO: change to state of lessons completion
-          index: 1 // TODO: use this to navigate to the right game for each world
-
+          text: DataObject.Data.lesson_completion_per_world.fire_world["lessons_completed"] + "/" + Constants.TOTAL_LESSONS, // TODO: change to state of lessons completion
+          index: 1, // TODO: use this to navigate to the right game for each world
+          short_key: Constants.FIRE_WORLD_KEY
         },
         {
           title: "Ice World",
-          text: "0/10", // TODO: change to state of lessons completion
-          index: 2
-
+          text: DataObject.Data.lesson_completion_per_world.ice_world["lessons_completed"] + "/" + Constants.TOTAL_LESSONS, // TODO: change to state of lessons completion
+          index: 2,
+          short_key: Constants.ICE_WORLD_KEY
         },
         {
           title: "Jungle World",
-          text: "0/10", // TODO: change to state of lessons completion
-          index: 3
-
+          text: DataObject.Data.lesson_completion_per_world.jungle_world["lessons_completed"] + "/" + Constants.TOTAL_LESSONS, // TODO: change to state of lessons completion
+          index: 3,
+          short_key: Constants.JUNGLE_WORLD_KEY
         },
         {
           title: "Alien World",
-          text: "0/10", // TODO: change to state of lessons completion
-          index: 4
-
+          text: DataObject.Data.lesson_completion_per_world.alien_world["lessons_completed"] + "/" + Constants.TOTAL_LESSONS, // TODO: change to state of lessons completion
+          index: 4,
+          short_key: Constants.ALIEN_WORLD_KEY
         }
-
       ]
     };
   }
@@ -65,6 +67,7 @@ export default class CarouselCards extends React.Component {
   }
 
   goToFire = () => {
+    setCurrentLessonParentWorld(this.state.carouselItems[this.state.activeIndex].short_key);
     this.props.navigation.navigate("Game");
     this.setState({
       showModal: false
