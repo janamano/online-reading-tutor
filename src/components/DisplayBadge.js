@@ -1,11 +1,18 @@
 import * as React from "react";
 import Constants from "../components/Constants.js";
-import { Text, View, Button, Image, StyleSheet } from "react-native";
+import {
+  Text,
+  View,
+  Button,
+  Image,
+  StyleSheet,
+  ScrollView,
+} from "react-native";
 import {
   renderWorldBadges,
   renderStreakImages,
   renderLessonImages,
-} from "../components/BadgeHelpers.js";
+} from "../components/Helpers.js";
 
 const DisplayBadge = (props) => {
   // props is the badges object:
@@ -17,17 +24,17 @@ const DisplayBadge = (props) => {
   return (
     <View>
       <Text style={styles.title}>World badges</Text>
-      <View style={styles.badgeContainer}>
+      <ScrollView horizontal={true} style={styles.badgeContainer}>
         {renderWorldBadges(props.badges[Constants.WORLD_COMPLETION])}
-      </View>
+      </ScrollView>
       <Text style={styles.title}>Streak badges</Text>
-      <View style={styles.badgeContainer}>
+      <ScrollView horizontal={true} style={styles.badgeContainer}>
         {renderStreakImages(props.badges[Constants.STREAKS])}
-      </View>
+      </ScrollView>
       <Text style={styles.title}>Lesson badges</Text>
-      <View style={styles.badgeContainer}>
+      <ScrollView horizontal={true} style={styles.badgeContainer}>
         {renderLessonImages(props.badges[Constants.LESSON_COMPLETION])}
-      </View>
+      </ScrollView>
     </View>
   );
 };
@@ -41,7 +48,7 @@ const styles = StyleSheet.create({
   },
   badgeContainer: {
     margin: 20,
-    height: 100,
+    height: 110,
     flexDirection: "row",
   },
   ImageIconStyle: {
