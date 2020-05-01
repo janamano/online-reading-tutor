@@ -54,13 +54,24 @@ const styles = StyleSheet.create({
       marginTop: 10,
       height: 40,
      flexWrap: "wrap",
-     marginBottom: 100
+     marginBottom: 100,
     },
     list: {
     flexDirection: "row",
     flexWrap: "wrap"
     },
-     underline: {textDecorationLine: 'underline'}
+     underline: {textDecorationLine: 'underline'},
+    bodyPart: {
+        width: 100,
+        height: 100,
+        marginTop:20,
+        marginRight: 25,
+        marginLeft:25
+    },
+    tabText: {
+        fontSize: 25,
+        color: "#333333"
+    }
 });
 
 
@@ -164,13 +175,13 @@ class HomeScreen extends React.Component {
             
         <View style={styles.tabContainer}>
           <TouchableOpacity onPress={()=>this.showImageFunc()}>
-            <Text style={{fontSize: 25, color: "#333333",textAlign: "left"}}>Hair</Text>
+            <Text style={styles.tabText}>Hair</Text>
           </TouchableOpacity>
             <TouchableOpacity onPress={()=>this.showEyeImageFunc()}>
-            <Text style={{fontSize: 25, color: "#333333",textAlign: "left"}}>Eyes</Text>
+            <Text style={styles.tabText}>Eyes</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={()=>this.showMouthImageFunc()}>
-            <Text style={{fontSize: 25, color: "#333333",textAlign: "left"}}>Mouth</Text>
+            <Text style={styles.tabText}>Mouth</Text>
           </TouchableOpacity>
         </View>
             
@@ -180,7 +191,7 @@ class HomeScreen extends React.Component {
                       <View>
         <TouchableOpacity onPress={()=>this.selectTopImage("1")}>
                         <Image
-                style={{width: 100, height: 100, marginTop:20,marginRight: 5, marginLeft:30}}
+                style={styles.bodyPart}
                           source={require('../assets/avatar/top/brain.png')} />
         </TouchableOpacity>
 
@@ -191,7 +202,7 @@ class HomeScreen extends React.Component {
                 <TouchableOpacity onPress={()=>this.selectTopImage("2")}>
 
                 <Image
-            style={{width: 100, height: 100, marginTop:20, marginRight: 30, marginLeft:5}}
+            style={styles.bodyPart}
                   source={require('../assets/avatar/top/hair.png')} />
                 </TouchableOpacity>
 
@@ -206,7 +217,7 @@ class HomeScreen extends React.Component {
                     <TouchableOpacity onPress={()=>this.selectMidImage("1")}>
 
                         <Image
-                style={{width: 100, height: 100, marginTop:20,marginRight: 10, marginLeft:10}}
+                style={styles.bodyPart}
                           source={require('../assets/avatar/mid/cyclops.png')} />
                     </TouchableOpacity>
 
@@ -216,7 +227,7 @@ class HomeScreen extends React.Component {
                            <TouchableOpacity onPress={()=>this.selectMidImage("2")}>
 
                                <Image
-                       style={{width: 100, height: 100, marginTop:20,marginRight: 10, marginLeft:10}}
+                       style={styles.bodyPart}
                                  source={require('../assets/avatar/mid/goofy.png')} />
                            </TouchableOpacity>
 
@@ -226,7 +237,7 @@ class HomeScreen extends React.Component {
                      <View>
                        <TouchableOpacity onPress={()=>this.selectMidImage("3")}>
                        <Image
-                   style={{width: 150, height: 100, marginTop:20, marginRight: 10, marginLeft:10}}
+                   style={styles.bodyPart}
                          source={require('../assets/avatar/mid/scared.png')} />
                        </TouchableOpacity>
 
@@ -240,7 +251,7 @@ class HomeScreen extends React.Component {
                      <TouchableOpacity onPress={()=>this.selectBottomImage("1")}>
 
                                   <Image
-                          style={{width: 100, height: 100, marginTop:20,marginRight: 25, marginLeft:25}}
+                          style={styles.bodyPart}
                                     source={require('../assets/avatar/bottom/toothy.png')} />
                      </TouchableOpacity>
 
@@ -251,11 +262,11 @@ class HomeScreen extends React.Component {
                    <TouchableOpacity onPress={()=>this.selectBottomImage("2")}>
 
                           <Image
-                      style={{width: 100, height: 100, marginTop:20, marginRight: 25, marginLeft:25}}
+                   style={styles.bodyPart}
                             source={require('../assets/avatar/bottom/vamp.png')} />
                    </TouchableOpacity>
 
-                        </View>}                          
+                        </View>}
         </View>
                         
             
