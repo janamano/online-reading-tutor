@@ -1,6 +1,6 @@
 import * as React from "react";
 import {
-  Platform, StyleSheet, Text, View, Dimensions, Image,TouchableOpacity
+    Platform, StyleSheet, Text, View, Dimensions, Image,TouchableOpacity, ImageBackground
 } from "react-native";
 
 // internal components
@@ -68,6 +68,20 @@ const styles = StyleSheet.create({
         marginRight: 25,
         marginLeft:25
     },
+    profilePic: {
+        width: 150,
+        height: 300,
+        marginTop:20,
+        marginRight: 25,
+        marginLeft:25
+    },
+    profileBodyParts: {
+           width: 60,
+           height: 60,
+           marginTop:80,
+           marginRight: 50,
+           marginLeft:45,
+       },
     tabText: {
         fontSize: 25,
         color: "#333333"
@@ -157,6 +171,16 @@ class HomeScreen extends React.Component {
         <Text style={styles.welcome}>Welcome to the Reading Tutor!</Text>
         <Text style={styles.instructions}>To get started, click here!</Text>
         <Text style={styles.instructions}>{instructions}</Text>
+        <ImageBackground
+            style={styles.profilePic}
+            source={require('../assets/avatar/body.png')}>
+        <Image
+            style={styles.profileBodyParts}
+            source={require('../assets/avatar/mid/cyclops.png')} />
+            <Image
+            style={styles.bodyPart}
+                      source={require('../assets/avatar/bottom/toothy.png')} />
+ </ImageBackground>
         <Button
           text="Click here to go to the Lessons page"
           onPress={() => this.props.navigation.navigate("Lessons")}
@@ -166,7 +190,7 @@ class HomeScreen extends React.Component {
           onPress={() => this.props.navigation.navigate("Badges")}
         />
         <Button
-          text="click here to create your avatar"
+          text="click here to edit your avatar"
           onPress={() => this.toggleEditState()}
         />
             
@@ -200,7 +224,6 @@ class HomeScreen extends React.Component {
             {this.state.showImage &&
               <View>
                 <TouchableOpacity onPress={()=>this.selectTopImage("2")}>
-
                 <Image
             style={styles.bodyPart}
                   source={require('../assets/avatar/top/hair.png')} />
@@ -269,7 +292,10 @@ class HomeScreen extends React.Component {
                         </View>}
         </View>
                         
-            
+            <Button
+              text="Save"
+              onPress={() => this.toggleEditState()}
+            />
         </BottomSheet>
       </View>
     );
