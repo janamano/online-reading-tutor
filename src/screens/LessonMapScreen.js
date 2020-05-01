@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { StyleSheet,Text, View, Button } from 'react-native';
 import CarouselCards from '../components/Carousel.js';
+import WorldsConstants from '../components/WorldsConstants'
+
 
 
 const styles = StyleSheet.create({
@@ -8,7 +10,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'black',
+        backgroundColor: WorldsConstants.WORLDS_BG_COLOR,
     },
     button: {
         fontSize: 20,

@@ -2,46 +2,26 @@ import * as React from 'react';
 import {
   Text,
   View,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
   SafeAreaView, Dimensions} from 'react-native';
 
+import WorldsConstants from './WorldsConstants'
 import Carousel from 'react-native-snap-carousel';
 // local components
 import Button from "./../components/Button"
+
+
+
 export default class CarouselCards extends React.Component  {
 
- 
     constructor(props){
         super(props);
         this.goToFire = this.goToFire.bind(this);
         this.state = {
           activeIndex:0,
-          carouselItems: [
-          {
-              title:"Fire World",
-              text: "0/10", //TODO: change to state of lessons completion
-              index: 1, //TODO: use this to navigate to the right game for each world
-
-          },
-          {
-              title:"Ice World",
-              text: "0/10",//TODO: change to state of lessons completion
-              index: 2,
-
-          },
-          {
-              title:"Jungle World",
-              text: "0/10",//TODO: change to state of lessons completion
-              index: 3,
-
-          },
-          {
-              title:"Alien World",
-              text: "0/10",//TODO: change to state of lessons completion
-              index: 4,
-
-          },
-
-        ]
+          carouselItems: WorldsConstants.WORLDS
       }
     }
 
@@ -50,36 +30,69 @@ export default class CarouselCards extends React.Component  {
 
         return (
           <View style={{
-              backgroundColor:'rebeccapurple',
+              backgroundColor: WorldsConstants.WORLDS_BG_COLOR,
               borderRadius: 5,
-        height: Dimensions.get('window').height *0.4,
-              padding: 50,
-              marginLeft: 25,
-              marginRight: 25,
-        marginTop:  Dimensions.get('window').height *0.15,
-        }}>
-        <Text style={{fontSize: 30}}>{item.title}</Text>
-        <Text>{item.text}</Text>
-          </View>
+              height: Dimensions.get('window').height,
+              // justifyContent: 'center',
+              alignItems: 'center',
 
-        )
+          }}>
+              <View style={{
+                  height: Dimensions.get('window').height *0.5,
+                  marginTop:  Dimensions.get('window').height *0.10,
+              }}>
+                  <Image
+                    key={item.title}
+                    source={item.icon}
+                    style={{
+                      flex: 1,
+                      resizeMode: 'contain',
+                    }}
+                  />
+              </View>
+              <View style={{
+                alignItems: 'center',
+                marginTop: 30,
+                justifyContent: 'center',
+                textAlignVertical: 'bottom'}}>
+                <Text style={{
+                  fontSize: 30,
+                  color: 'white',
+                }}>
+                  {item.title}
+                </Text>
+                <Text style={{
+                  color: 'white',
+                }}>
+                  {item.text}
+                </Text>
+              </View>
+              <View>
+                  <TouchableOpacity
+                    style = {styles.button}
+                    color="#FFFFFF"
+                    disabled={!item.unlocked}
+                    onPress= {() =>  this.goToFire()}>
+                      <Text>{"Explore " + item.title}</Text>
+                  </TouchableOpacity>
+              </View>
+          </View>
+        );
     }
 
     render() {
         return (
-                <SafeAreaView style={{flex: 1, backgroundColor:'black', paddingTop: 50, paddingBottom:100}}>
-            <View style={{ flex: 1, flexDirection:'row', justifyContent: 'center', }}>
+            <SafeAreaView style={{flex: 1, backgroundColor:'#967ECB', paddingTop: 50, paddingBottom:100}}>
+              <View style={{ flex: 1, flexDirection:'row', justifyContent: 'center', }}>
                 <Carousel
                   layout={"default"}
                   ref={ref => this.carousel = ref}
                   data={this.state.carouselItems}
                   sliderWidth={300}
                   itemWidth={300}
-                  renderItem={this._renderItem}
+                  renderItem={this._renderItem.bind(this)}
                   onSnapToItem = { index => this.setState({activeIndex:index}) } />
-                
             </View>
-                 <Button text = "Start" onPress= {() =>  this.goToFire()} />
           </SafeAreaView>
         );
     }
@@ -90,3 +103,21 @@ export default class CarouselCards extends React.Component  {
       });
     }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    paddingHorizontal: 10
+  },
+  button: {
+    marginTop: Dimensions.get('window').height * 0.1,
+    alignItems: "center",
+    backgroundColor: "#DDDDDD",
+    padding: 10
+  },
+  countContainer: {
+    alignItems: "center",
+    padding: 10
+  }
+});
