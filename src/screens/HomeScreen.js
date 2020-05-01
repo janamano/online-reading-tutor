@@ -29,7 +29,18 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#333333",
     marginBottom: 5
-  }
+  },
+    tabContainer: {
+      backgroundColor: variables.palette.gray.uiBackground,
+      width: "100%",
+      flexDirection: "row",
+      justifyContent: "space-between",
+      paddingHorizontal: 10,
+      height: "20%",
+      alignItems: "center",
+      marginTop: 10,
+      height: 40
+    }
 });
 
 
@@ -72,11 +83,22 @@ class HomeScreen extends React.Component {
           onPress={() => this.toggleEditState()}
         />
         <BottomSheet onDismiss={() => this.toggleEditState()} visible={editMode} height={modalHeight}>
-          <Text>Modal Child</Text>
+          <View style={styles.tabContainer}>
+          <View>
+            <Text style={{fontSize: 25, color: "#333333",textAlign: "left"}}>Hair</Text>
+          </View>
+          <View>
+             <Text style={{fontSize: 25, color: "#333333",textAlign: "center"}}>Eyes</Text>
+          </View>
+          <View>
+             <Text style={{fontSize: 25, color: "#333333",textAlign: "right"}}>Mouth</Text>
+          </View>
+          </View>
         </BottomSheet>
       </View>
     );
   }
 }
+
 
 export default HomeScreen;
