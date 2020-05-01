@@ -1,0 +1,1 @@
+export const Data = require("./data.json");

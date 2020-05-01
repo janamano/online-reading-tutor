@@ -1,0 +1,87 @@
+{
+  "name": "bob",
+  "password": "bobpass",
+  "streak": { "last_logged_in": "xxx", "streak_count": "-1" },
+  "gameHighScore": 0,
+  "BADGES": [
+    [ 
+      {
+        "badgeID": 1,
+        "badgeName": "Lesson 1 Completed",
+        "badgeImage": "../assets/badges/locked.png",
+        "badgeState": false
+      },
+      {
+        "badgeID": 2,
+        "badgeName": "Lesson 2 Completed",
+        "badgeImage": "../assets/badges/locked.png",
+        "badgeState": false
+      },
+      {
+        "badgeID": 3,
+        "badgeName": "Lesson 3 Completed",
+        "badgeImage": "../assets/badges/locked.png",
+        "badgeState": false
+      }
+    ],
+    [
+      {
+        "badgeID": 1,
+        "badgeName": "Fire World Completed",
+        "badgeImage": "../assets/badges/locked.png",
+        "badgeState": false
+      },
+      {
+        "badgeID": 2,
+        "badgeName": "Ice World Completed",
+        "badgeImage": "../assets/badges/locked.png",
+        "badgeState": false
+      },
+      {
+        "badgeID": 3,
+        "badgeName": "Water World Completed",
+        "badgeImage": "../assets/badges/locked.png",
+        "badgeState": false
+      },
+      {
+        "badgeID": 4,
+        "badgeName": "Jungle World Completed",
+        "badgeImage": "../assets/badges/locked.png",
+        "badgeState": false
+      },
+      {
+        "badgeID": 5,
+        "badgeName": "Alien World Completed",
+        "badgeImage": "../assets/badges/locked.png",
+        "badgeState": false
+      }
+    ],
+    [
+      {
+        "badgeID": 1,
+        "badgeName": "5 Day Streak Achieved",
+        "badgeImage": "../assets/badges/locked.png",
+        "badgeState": false
+      },
+      {
+        "badgeID": 2,
+        "badgeName": "10 Day Streak Achieved",
+        "badgeImage": "../assets/badges/locked.png",
+        "badgeState": false
+      },
+      {
+        "badgeID": 3,
+        "badgeName": "15 Day Streak Achieved",
+        "badgeImage": "../assets/badges/locked.png",
+        "badgeState": false
+      }
+    ]
+  ],
+  "lesson_completion_per_world": {
+    "fire_world": { "lessons_completed": 0, "world_completed": false },
+    "ice_world": { "lessons_completed": 0, "world_completed": false },
+    "water_world": { "lessons_completed": 0, "world_completed": false },
+    "jungle_world": { "lessons_completed": 0, "world_completed": false },
+    "alien_world": { "lessons_completed": 0, "world_completed": false}
+  }
+}

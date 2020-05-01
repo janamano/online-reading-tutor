@@ -1,6 +1,5 @@
 import * as React from "react";
 import Constants from "../components/Constants.js";
-import BadgeConstants from "../components/BadgeConstants.js";
 import { Text, View, Button, StyleSheet, Image } from "react-native";
 
 // Export displaybadge component
@@ -37,6 +36,9 @@ const BadgeScreen = (props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Your Badges!</Text>
+      <Text style={styles.subtitle}>
+        Scroll horizontally to see all badges!
+      </Text>
 
       <DisplayBadge badges={props.badges} />
 
@@ -45,7 +47,6 @@ const BadgeScreen = (props) => {
         onPress={() => {
           props.navigation.navigate("Home");
           console.log(props.badges);
-          console.log(BadgeConstants.TEST);
           // "badges" is as follows
           // [0] -> [0] -> {badgeId: .. , badgeName: .. , badgeState: ..}
           //     -> [1] -> {badgeId: .. , badgeName: .. , badgeState: ..}
@@ -66,9 +67,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffff",
   },
   title: {
-    margin: 20,
+    margin: 5,
     alignSelf: "center",
     fontWeight: "bold",
     fontSize: 30,
+  },
+  subtitle: {
+    margin: 20,
+    alignSelf: "center",
+    fontWeight: "bold",
+    fontSize: 15,
   },
 });
