@@ -1,6 +1,6 @@
 import * as React from "react";
 import {
-  Platform, StyleSheet, Text, View, Dimensions
+  Platform, StyleSheet, Text, View, Dimensions, Image,TouchableOpacity
 } from "react-native";
 
 // internal components
@@ -36,30 +36,83 @@ const styles = StyleSheet.create({
       flexDirection: "row",
       justifyContent: "space-between",
       paddingHorizontal: 10,
-      height: "20%",
+      height: "100%",
       alignItems: "center",
       marginTop: 10,
-      height: 40
-    }
+      height: 40,
+     flexWrap: "wrap",
+     marginBottom: 20
+    },
+    imageTabContainer: {
+      backgroundColor: variables.palette.gray.uiBackground,
+      width: "100%",
+      flexDirection: "row",
+      justifyContent: "space-between",
+      paddingHorizontal: 20,
+      height: "100%",
+      alignItems: "center",
+      marginTop: 10,
+      height: 40,
+     flexWrap: "wrap",
+     marginBottom: 100
+    },
+    list: {
+    flexDirection: "row",
+    flexWrap: "wrap"
+    },
+     underline: {textDecorationLine: 'underline'}
 });
 
 
 class HomeScreen extends React.Component {
   constructor(props) {
     super();
+      this.showImageFunc = this.showImageFunc.bind(this);
+      this.showEyeImageFunc = this.showEyeImageFunc.bind(this);
+      this.showMouthImageFunc = this.showMouthImageFunc.bind(this);
+
     this.state = {
-      editMode: false
+      editMode: false,
+      showImage: false,
+    showEyeImage: false,
+    showMouthImage: false
     };
+      
   }
 
   toggleEditState() {
     this.setState((prevState) => {
       const newState = !prevState.editMode;
       return {
-        editMode: newState
+      editMode: newState,
+      showImage:false,
+          showEyeImage: false,
+            showMouthImage: false
+          
       };
     });
   }
+    
+    showImageFunc = () => {
+       this.setState({showImage: true});
+        this.setState({showEyeImage: false});
+        this.setState({showMouthImage: false});
+
+
+    }
+    showEyeImageFunc = () => {
+       this.setState({showEyeImage: true});
+        this.setState({showImage: false});
+        this.setState({showMouthImage: false});
+
+
+    }
+    showMouthImageFunc = () => {
+       this.setState({showMouthImage: true});
+        this.setState({showEyeImage: false});
+        this.setState({showImage: false});
+
+    }
 
   render() {
     const { editMode } = this.state;
@@ -79,21 +132,89 @@ class HomeScreen extends React.Component {
           onPress={() => this.props.navigation.navigate("Badges")}
         />
         <Button
-          text="click here for modal"
+          text="click here to create your avatar"
           onPress={() => this.toggleEditState()}
         />
+            
         <BottomSheet onDismiss={() => this.toggleEditState()} visible={editMode} height={modalHeight}>
-          <View style={styles.tabContainer}>
-          <View>
+    
+            
+        <View style={styles.tabContainer}>
+          <TouchableOpacity onPress={()=>this.showImageFunc()}>
             <Text style={{fontSize: 25, color: "#333333",textAlign: "left"}}>Hair</Text>
-          </View>
-          <View>
-             <Text style={{fontSize: 25, color: "#333333",textAlign: "center"}}>Eyes</Text>
-          </View>
-          <View>
-             <Text style={{fontSize: 25, color: "#333333",textAlign: "right"}}>Mouth</Text>
-          </View>
-          </View>
+          </TouchableOpacity>
+            <TouchableOpacity onPress={()=>this.showEyeImageFunc()}>
+            <Text style={{fontSize: 25, color: "#333333",textAlign: "left"}}>Eyes</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={()=>this.showMouthImageFunc()}>
+            <Text style={{fontSize: 25, color: "#333333",textAlign: "left"}}>Mouth</Text>
+          </TouchableOpacity>
+          <Button
+                         onPress={this.showMouthImageFunc}
+                         title="Hair"
+                         color="#841584"/>
+        </View>
+            
+        <View style={styles.imageTabContainer}>
+
+                {this.state.showImage &&
+                      <View>
+                        <Image
+                style={{width: 100, height: 100, marginTop:20,marginRight: 5, marginLeft:30}}
+                          source={require('../assets/avatar/top/brain.png')} />
+                      </View>}
+            
+            {this.state.showImage &&
+              <View>
+                <Image
+            style={{width: 100, height: 100, marginTop:20, marginRight: 30, marginLeft:5}}
+                  source={require('../assets/avatar/top/hair.png')} />
+              </View>}
+                
+        </View>
+        
+        <View style={styles.imageTabContainer}>
+
+                {this.state.showEyeImage &&
+                      <View>
+                        <Image
+                style={{width: 100, height: 100, marginTop:20,marginRight: 10, marginLeft:10}}
+                          source={require('../assets/avatar/mid/cyclops.png')} />
+                      </View>}
+                       {this.state.showEyeImage &&
+                             <View>
+                               <Image
+                       style={{width: 100, height: 100, marginTop:20,marginRight: 10, marginLeft:10}}
+                                 source={require('../assets/avatar/mid/goofy.png')} />
+                             </View>}
+                   
+                   {this.state.showEyeImage &&
+                     <View>
+                       <Image
+                   style={{width: 150, height: 100, marginTop:20, marginRight: 10, marginLeft:10}}
+                         source={require('../assets/avatar/mid/scared.png')} />
+                     </View>}
+                       
+               </View>
+          <View style={styles.imageTabContainer}>
+
+                 {this.state.showMouthImage &&
+                                <View>
+                                  <Image
+                          style={{width: 100, height: 100, marginTop:20,marginRight: 25, marginLeft:25}}
+                                    source={require('../assets/avatar/bottom/toothy.png')} />
+                                </View>}
+                      
+               {this.state.showMouthImage &&
+                        <View>
+                          <Image
+                      style={{width: 100, height: 100, marginTop:20, marginRight: 25, marginLeft:25}}
+                            source={require('../assets/avatar/bottom/vamp.png')} />
+                        </View>}
+                          
+        </View>
+          
+            
         </BottomSheet>
       </View>
     );
