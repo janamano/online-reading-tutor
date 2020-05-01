@@ -26,10 +26,10 @@ export class Game extends Component {
 
   setupWorld = () => {
     const engine = Matter.Engine.create({ enableSleeping: false });
-    const { world } = engine;
-
+    const world = engine.world;
+    world.gravity.y = 0.0;
     // player and platform
-    let player = Matter.Bodies.rectangle(0, Constants.MAX_HEIGHT / 2, 88, 120);
+    let player = Matter.Bodies.rectangle(-Constants.MAX_WIDTH / 5, Constants.MAX_HEIGHT / 2, 60*(Constants.RATIO), 60); 
     let platform1 = Matter.Bodies.rectangle(
       0,
       Constants.MAX_HEIGHT - 150,
@@ -45,36 +45,44 @@ export class Game extends Component {
       50,
       { isStatic: true }
     );
+    
+    // platform 3 and 4 are ceiling
+    let platform3 = Matter.Bodies.rectangle(
+      0,
+      Constants.MAX_HEIGHT / 100,
+      Constants.MAX_WIDTH + 4,
+      50,
+      { isStatic: true }
+    );
 
-    Matter.World.add(world, [player, platform1, platform2]);
+    const platform4 = Matter.Bodies.rectangle(
+      Constants.MAX_WIDTH,
+      Constants.MAX_HEIGHT / 100,
+      Constants.MAX_WIDTH + 4,
+      50,
+      { isStatic: true }
+    );
 
+    Matter.World.add(world, [player, platform1, platform2, platform3, platform4]);
+    
+    // touch anything you die
+    // Matter.Events.on(engine, 'collisionStart', (event) => {
+    //   var pairs = event.pairs;
+
+    //   this.gameEngine.dispatch({ type: "game-over"});
+
+    // });
 
     return {
       physics: { engine: engine, world: world },
-      player: { body: player, size: [88, 120], frame: 1, renderer: Player },
-      platform1: { body: platform1, size: [Constants.MAX_WIDTH + 4, 50], renderer: Platform },
-      platform2: { body: platform2, size: [Constants.MAX_WIDTH + 4, 50], renderer: Platform }
+      player: { body: player, renderer: Player },
+      platform1: { body: platform1, renderer: Platform },
+      platform2: { body: platform2, renderer: Platform },
+      platform3: { body: platform3, renderer: Platform },
+      platform4: { body: platform4, renderer: Platform }
 
     };
   }
-
-  /*
-  showAlert() {
-    const {navigation, position} = this.props
-
-
-    Alert.alert(
-      'Game Over',
-        '',
-        [
-          {text: 'Retart', onPress: () => this.reset()},
-          {text: 'Exit', onPress: () => this.goToHome()},
-        ]
-      );
-
-    }
-
-*/
 
   goToHome = () => {
     this.props.navigation.navigate("Home");
@@ -87,7 +95,8 @@ export class Game extends Component {
     if (e.type === "game-over") {
       this.setState({
         running: false,
-        showModal: true
+        showModal: true,
+        score: 0
       });
       //this.showAlert()
     } else if (e.type === "scored") {
@@ -108,7 +117,7 @@ export class Game extends Component {
   render() {
     return (
         <View style={styles.container}>
-            {/* <Image style={styles.backgroundImage} resizeMode="stretch" source={require("../assets/game_menu.png")} /> */}
+            <Image style={styles.backgroundImage} resizeMode="stretch" source={require("../assets/game/background.png")} />
             <GameEngine
                 ref={(ref) => { this.gameEngine = ref; }}
                 style={styles.gameContainer}
@@ -124,9 +133,10 @@ export class Game extends Component {
                 visible = {this.state.showModal} >
                   <View style={styles.gameOverContainer}>
                     <Text style={styles.gameOverText}> Game Over </Text>
+                    <Text style={styles.gameOverScoreText}> Score: {this.state.score} </Text>
                     <Image
                       source=
-                      {require('../assets/baby_dragon.png')}
+                      {require('../assets/game/sprite.png')}
                       style={styles.ImageIconStyle}
                     />
                     <Button title = "Restart" onPress= {() => this.reset()} />
@@ -175,6 +185,15 @@ backgroundImage: {
     alignSelf: "center",
     padding: 10
   },
+  gameOverScoreText: {
+    color: "black",
+    fontSize: 20,
+    alignSelf: "center",
+    padding: 10,
+    textShadowColor: '#444444',
+    textShadowOffset: { width: 2, height: 2},
+    textShadowRadius: 2,
+  },
   gameOverSubText: {
     color: "white",
     fontSize: 24
@@ -188,8 +207,8 @@ backgroundImage: {
     flex: 0.5
   },
   ImageIconStyle: {
-    width: 200,
-    height: 200,
+    width: 250,
+    height: 140,
     alignSelf: "center",
     margin: 25
   }
