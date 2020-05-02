@@ -164,7 +164,7 @@ class HomeScreen extends React.Component {
     }
   render() {
     const { editMode } = this.state;
-    const modalHeight = 2 * (Dimensions.get("screen").height / 3);
+      const modalHeight = 2 * (Dimensions.get("screen").height * 0.25);
 
     return (
       <View style={styles.container}>
@@ -213,13 +213,13 @@ class HomeScreen extends React.Component {
 
                 {this.state.showImage &&
                       <View>
-        <TouchableOpacity onPress={()=>this.selectTopImage("1")}>
+                        <TouchableOpacity onPress={()=>this.selectTopImage("1")}>
                         <Image
                 style={styles.bodyPart}
                           source={require('../assets/avatar/top/brain.png')} />
-        </TouchableOpacity>
+                        </TouchableOpacity>
 
-        </View>}
+                    </View>}
             
             {this.state.showImage &&
               <View>
@@ -231,9 +231,6 @@ class HomeScreen extends React.Component {
 
               </View>}
                 
-        </View>
-        
-        <View style={styles.imageTabContainer}>
 
                 {this.state.showEyeImage &&
                       <View>
@@ -266,8 +263,7 @@ class HomeScreen extends React.Component {
 
                      </View>}
                        
-               </View>
-          <View style={styles.imageTabContainer}>
+  
 
                  {this.state.showMouthImage &&
                                 <View>
