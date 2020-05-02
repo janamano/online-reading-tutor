@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { Animated, Image } from 'react-native';
 
 export default class Obstacle extends Component {
     render() {
@@ -7,9 +7,10 @@ export default class Obstacle extends Component {
         const height = this.props.body.bounds.max.y - this.props.body.bounds.min.y;
         const x = this.props.body.position.x - width / 2;
         const y = this.props.body.position.y - height / 2;
+        let look = require('../assets/game/fireball.png');
 
         return (
-            <View
+            <Animated.Image
                 style={{
                     position: 'absolute',
                     right: x,
@@ -17,8 +18,11 @@ export default class Obstacle extends Component {
                     width: width,
                     height: height,
                     borderRadius: this.props.rad,
-                    backgroundColor: 'yellow'
-                }} />
+                    transform: [{ rotate: this.props.angle+'deg' }]
+                }}
+                resizeMode="stretch"
+                source={look}
+                 />
         )
     }
 }

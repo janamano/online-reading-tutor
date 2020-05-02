@@ -4,14 +4,6 @@ const path = require('path');
 module.exports = function (api) {
   api.cache(true);
   return {
-    presets: ["babel-preset-expo"],
-    devServer: {
-      contentBase: [
-        path.resolve(__dirname, './src/assets/lib')
-      ],
-      open: true,
-      openPage: '',
-      compress: true
-    }
+    presets: ["babel-preset-expo"]
   };
 };
