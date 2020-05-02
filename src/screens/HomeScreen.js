@@ -61,10 +61,21 @@ const styles = StyleSheet.create({
     flexWrap: "wrap"
     },
      underline: {textDecorationLine: 'underline'},
-    bodyPart: {
-        width: 100,
-        height: 100,
+    bottomBodyPart: {
         marginTop:20,
+        marginRight: 50,
+        marginLeft:5
+    },
+    profileBodyPartTop: {
+           marginTop:20,
+           marginRight: 50,
+           marginLeft:5,
+    marginBottom:50
+    },
+    topBodyPart: {
+    height:75,
+    width:100,
+        marginTop:10,
         marginRight: 25,
         marginLeft:25
     },
@@ -107,6 +118,34 @@ class HomeScreen extends React.Component {
     topImageFinal: 0,
     midImageFinal:0,
      bottomImageFinal:0,
+    Top : [
+    {
+      "image": require("../assets/avatar/top/brain.png")
+    },
+    {
+      "image": require("../assets/avatar/top/hair.png")
+    }
+     ],
+     Mid : [
+     {
+       "image": require('../assets/avatar/mid/cyclops.png')
+     },
+     {
+       "image": require('../assets/avatar/mid/goofy.png')
+     },
+     {
+       "image": require('../assets/avatar/mid/scared.png')
+     }
+      ],
+     Bottom : [
+     {
+       "image": require("../assets/avatar/bottom/toothy.png")
+     },
+     {
+       "image": require("../assets/avatar/bottom/vamp.png")
+     }
+      ]
+        
     };
       
   }
@@ -157,9 +196,17 @@ class HomeScreen extends React.Component {
 
        }
     displayAvatar = () => {
-          this.setState({topImageFinal: topImage});
-        this.setState({midImageFinal: midImage});
-        this.setState({bottomImageFinal: bottomImage});
+        this.setState({topImageFinal: this.state.topImage});
+        this.setState({midImageFinal: this.state.midImage});
+        this.setState({bottomImageFinal: this.state.bottomImage});
+        this.toggleEditState();
+
+    }
+    cancelSave = () => {
+        this.setState({topImage: this.state.topImageFinal});
+        this.setState({midImage: this.state.midImageFinal});
+        this.setState({bottomImage: this.state.bottomImageFinal});
+        this.toggleEditState();
 
     }
   render() {
@@ -169,17 +216,12 @@ class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>Welcome to the Reading Tutor!</Text>
-        <Text style={styles.instructions}>To get started, click here!</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
         <ImageBackground
             style={styles.profilePic}
             source={require('../assets/avatar/body.png')}>
-        <Image
-            style={styles.profileBodyParts}
-            source={require('../assets/avatar/mid/cyclops.png')} />
-            <Image
-            style={styles.bodyPart}
-                      source={require('../assets/avatar/bottom/toothy.png')} />
+            <Image source = {this.state.Top[this.state.topImageFinal].image}/>
+            <Image source = {this.state.Mid[this.state.midImageFinal].image}/>
+            <Image source = {this.state.Bottom[this.state.bottomImageFinal].image}/>
  </ImageBackground>
         <Button
           text="Click here to go to the Lessons page"
@@ -213,9 +255,9 @@ class HomeScreen extends React.Component {
 
                 {this.state.showImage &&
                       <View>
-                        <TouchableOpacity onPress={()=>this.selectTopImage("1")}>
+                        <TouchableOpacity onPress={()=>this.selectTopImage(0)}>
                         <Image
-                style={styles.bodyPart}
+                style={styles.topBodyPart}
                           source={require('../assets/avatar/top/brain.png')} />
                         </TouchableOpacity>
 
@@ -223,9 +265,9 @@ class HomeScreen extends React.Component {
             
             {this.state.showImage &&
               <View>
-                <TouchableOpacity onPress={()=>this.selectTopImage("2")}>
+                <TouchableOpacity onPress={()=>this.selectTopImage(1)}>
                 <Image
-            style={styles.bodyPart}
+            style={styles.topBodyPart}
                   source={require('../assets/avatar/top/hair.png')} />
                 </TouchableOpacity>
 
@@ -234,20 +276,18 @@ class HomeScreen extends React.Component {
 
                 {this.state.showEyeImage &&
                       <View>
-                    <TouchableOpacity onPress={()=>this.selectMidImage("1")}>
+                    <TouchableOpacity onPress={()=>this.selectMidImage(0)}>
 
                         <Image
-                style={styles.bodyPart}
                           source={require('../assets/avatar/mid/cyclops.png')} />
                     </TouchableOpacity>
 
                       </View>}
                        {this.state.showEyeImage &&
                              <View>
-                           <TouchableOpacity onPress={()=>this.selectMidImage("2")}>
+                           <TouchableOpacity onPress={()=>this.selectMidImage(1)}>
 
                                <Image
-                       style={styles.bodyPart}
                                  source={require('../assets/avatar/mid/goofy.png')} />
                            </TouchableOpacity>
 
@@ -255,9 +295,8 @@ class HomeScreen extends React.Component {
                    
                    {this.state.showEyeImage &&
                      <View>
-                       <TouchableOpacity onPress={()=>this.selectMidImage("3")}>
+                       <TouchableOpacity onPress={()=>this.selectMidImage(2)}>
                        <Image
-                   style={styles.bodyPart}
                          source={require('../assets/avatar/mid/scared.png')} />
                        </TouchableOpacity>
 
@@ -267,10 +306,10 @@ class HomeScreen extends React.Component {
 
                  {this.state.showMouthImage &&
                                 <View>
-                     <TouchableOpacity onPress={()=>this.selectBottomImage("1")}>
+                     <TouchableOpacity onPress={()=>this.selectBottomImage(0)}>
 
                                   <Image
-                          style={styles.bodyPart}
+                          style={styles.bottomBodyPart}
                                     source={require('../assets/avatar/bottom/toothy.png')} />
                      </TouchableOpacity>
 
@@ -278,20 +317,27 @@ class HomeScreen extends React.Component {
                       
                {this.state.showMouthImage &&
                         <View>
-                   <TouchableOpacity onPress={()=>this.selectBottomImage("2")}>
+                   <TouchableOpacity onPress={()=>this.selectBottomImage(1)}>
 
                           <Image
-                   style={styles.bodyPart}
+                   style={styles.bottomBodyPart}
                             source={require('../assets/avatar/bottom/vamp.png')} />
                    </TouchableOpacity>
 
                         </View>}
         </View>
-                        
+        <View>
+
             <Button
               text="Save"
-              onPress={() => this.toggleEditState()}
+              onPress={() => this.displayAvatar()}
             />
+            <Button
+                     text="Cancel"
+                     onPress={() => this.cancelSave()}
+            />
+                
+         </View>
         </BottomSheet>
       </View>
     );
