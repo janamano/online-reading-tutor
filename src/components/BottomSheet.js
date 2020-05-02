@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
   }
 });
 
+
 export class BottomSheet extends React.Component {
   constructor(props) {
     super(props);
