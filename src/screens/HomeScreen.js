@@ -6,6 +6,8 @@ import {
 // internal components
 import { Button, BottomSheet } from "../components/index";
 import globalStyles from "../styles/global";
+import Constants from "../components/Constants.js";
+
 
 
 
@@ -122,29 +124,29 @@ class HomeScreen extends React.Component {
       mouthTextColour: "#333333",
       Top : [
         {
-          "image": require("../assets/avatar/top/brain.png")
+          "image": Constants.TOP_BRAIN
         },
         {
-          "image": require("../assets/avatar/top/hair.png")
+          "image": Constants.TOP_HAIR
         }
      ],
     Mid : [
         {
-            "image": require('../assets/avatar/mid/cyclops.png')
+          "image": Constants.MID_CYCLOPS
         },
         {
-            "image": require('../assets/avatar/mid/goofy.png')
+          "image": Constants.MID_GOOFY
         },
         {
-            "image": require('../assets/avatar/mid/scared.png')
+          "image": Constants.MID_SCARED
         }
      ],
      Bottom : [
         {
-            "image": require("../assets/avatar/bottom/toothy.png")
+           "image": Constants.BOT_TOOTHY
         },
         {
-            "image": require("../assets/avatar/bottom/vamp.png")
+           "image": Constants.BOT_VAMP
         }
      ]
         
@@ -253,7 +255,7 @@ class HomeScreen extends React.Component {
               <View>
                 <TouchableOpacity onPress={()=>this.selectTopImage(0)}>
                   <Image style={styles.topBodyPart}
-                         source={require('../assets/avatar/top/brain.png')} />
+                  source={Constants.TOP_BRAIN} />
                 </TouchableOpacity>
               </View>}
             
@@ -261,7 +263,7 @@ class HomeScreen extends React.Component {
               <View>
                 <TouchableOpacity onPress={()=>this.selectTopImage(1)}>
                   <Image style={styles.topBodyPart}
-                         source={require('../assets/avatar/top/hair.png')} />
+                    source={Constants.TOP_HAIR} />
                 </TouchableOpacity>
               </View>}
                 
@@ -269,7 +271,7 @@ class HomeScreen extends React.Component {
               <View>
                 <TouchableOpacity onPress={()=>this.selectMidImage(0)}>
                   <Image
-                     source={require('../assets/avatar/mid/cyclops.png')} />
+                source={Constants.MID_CYCLOPS} />
                 </TouchableOpacity>
               </View>}
             
@@ -277,7 +279,7 @@ class HomeScreen extends React.Component {
               <View>
                 <TouchableOpacity onPress={()=>this.selectMidImage(1)}>
                   <Image
-                    source={require('../assets/avatar/mid/goofy.png')} />
+                source={Constants.MID_GOOFY} />
                 </TouchableOpacity>
               </View>}
                    
@@ -285,7 +287,7 @@ class HomeScreen extends React.Component {
               <View>
                 <TouchableOpacity onPress={()=>this.selectMidImage(2)}>
                   <Image
-                    source={require('../assets/avatar/mid/scared.png')} />
+                source={Constants.MID_SCARED} />
                 </TouchableOpacity>
               </View>}
   
@@ -293,7 +295,7 @@ class HomeScreen extends React.Component {
               <View>
                 <TouchableOpacity onPress={()=>this.selectBottomImage(0)}>
                   <Image style={styles.bottomBodyPart}
-                    source={require('../assets/avatar/bottom/toothy.png')} />
+                source={Constants.BOT_TOOTHY} />
                 </TouchableOpacity>
 
               </View>}
@@ -302,7 +304,7 @@ class HomeScreen extends React.Component {
               <View>
                 <TouchableOpacity onPress={()=>this.selectBottomImage(1)}>
                   <Image style={styles.bottomBodyPart}
-                    source={require('../assets/avatar/bottom/vamp.png')} />
+                source={Constants.BOT_VAMP} />
                 </TouchableOpacity>
               </View>}
                    
