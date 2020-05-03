@@ -87,5 +87,14 @@ export default Constants = {
   CURRENT_LESSON_PARENT: "None",
 
   // Total Lessons placeholder for now
-  TOTAL_LESSONS: 3
+  TOTAL_LESSONS: 3,
+    
+  // Avatar Images
+  TOP_BRAIN: require("../assets/avatar/top/brain.png"),
+  TOP_HAIR: require("../assets/avatar/top/hair.png"),
+  MID_CYCLOPS: require('../assets/avatar/mid/cyclops.png'),
+  MID_GOOFY: require('../assets/avatar/mid/goofy.png'),
+  MID_SCARED: require('../assets/avatar/mid/scared.png'),
+  BOT_TOOTHY: require("../assets/avatar/bottom/toothy.png"),
+  BOT_VAMP: require("../assets/avatar/bottom/vamp.png")
 };
