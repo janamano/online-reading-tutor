@@ -1,10 +1,16 @@
 import * as React from "react";
 import {
-  Platform, StyleSheet, Text, View, Dimensions
+    Platform, StyleSheet, Text, View, Dimensions, Image,TouchableOpacity, ImageBackground
 } from "react-native";
+
+import Profile from "../components/Profile";
 
 // internal components
 import { Button, BottomSheet } from "../components/index";
+import globalStyles from "../styles/global";
+import Constants from "../components/Constants.js";
+
+
 
 
 const instructions = Platform.select({
@@ -19,64 +25,27 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#F5FCFF"
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: 10
-  },
-  instructions: {
-    textAlign: "center",
-    color: "#333333",
-    marginBottom: 5
   }
 });
 
 
-class HomeScreen extends React.Component {
-  constructor(props) {
-    super();
-    this.state = {
-      editMode: false
-    };
-  }
-
-  toggleEditState() {
-    this.setState((prevState) => {
-      const newState = !prevState.editMode;
-      return {
-        editMode: newState
-      };
-    });
-  }
-
-  render() {
-    const { editMode } = this.state;
-    const modalHeight = 2 * (Dimensions.get("screen").height / 3);
-
+const HomeScreen = (props) => {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to the Reading Tutor!</Text>
-        <Text style={styles.instructions}>To get started, click here!</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
+       <View>
+        <Profile badges={props.badges}/>
+        <View style={{ flexDirection: 'row', position: 'absolute', marginTop: 700, alignItems:'center' }}>
         <Button
-          text="Click here to go to the Lessons page"
-          onPress={() => this.props.navigation.navigate("Lessons")}
+          text="Lessons"
+          onPress={() => props.navigation.navigate("Lessons")}
         />
         <Button
           text="Badges"
-          onPress={() => this.props.navigation.navigate("Badges")}
+          onPress={() => props.navigation.navigate("Badges")}
         />
-        <Button
-          text="click here for modal"
-          onPress={() => this.toggleEditState()}
-        />
-        <BottomSheet onDismiss={() => this.toggleEditState()} visible={editMode} height={modalHeight}>
-          <Text>Modal Child</Text>
-        </BottomSheet>
+        </View>
+        </View>
       </View>
     );
-  }
 }
-
 export default HomeScreen;

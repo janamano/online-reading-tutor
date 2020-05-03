@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
   }
 });
 
+
 export class BottomSheet extends React.Component {
   constructor(props) {
     super(props);
@@ -84,7 +85,6 @@ export class BottomSheet extends React.Component {
       >
         <Animated.View style={[styles.container, { height, top }]} {...this.panResponders.panHandlers}>
           <View>{children}</View>
-          <Button text="Done" onPress={() => this.props.onDismiss()} />
         </Animated.View>
       </Modal>
     );
