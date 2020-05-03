@@ -5,6 +5,8 @@ import {
 
 // internal components
 import { Button, BottomSheet } from "../components/index";
+import globalStyles from "../styles/global";
+
 
 
 const instructions = Platform.select({
@@ -92,11 +94,7 @@ const styles = StyleSheet.create({
            marginTop:80,
            marginRight: 50,
            marginLeft:45,
-       },
-    tabText: {
-        fontSize: 25,
-        color: "#333333"
-    }
+       }
 });
 
 
@@ -118,6 +116,12 @@ class HomeScreen extends React.Component {
     topImageFinal: 0,
     midImageFinal:0,
      bottomImageFinal:0,
+        hair : null,
+        eyes : null,
+        mouth : null,
+        hairTextColour : "#333333",
+    eyeTextColour: "#333333",
+    mouthTextColour: "#333333",
     Top : [
     {
       "image": require("../assets/avatar/top/brain.png")
@@ -164,6 +168,7 @@ class HomeScreen extends React.Component {
   }
     
     showImageFunc = () => {
+        this.setState({hair:"underline",eye:null,mouth:null,hairTextColour:"white", eyeTextColour: "#333333", mouthTextColour:  "#333333"});
        this.setState({showImage: true});
         this.setState({showEyeImage: false});
         this.setState({showMouthImage: false});
@@ -171,6 +176,7 @@ class HomeScreen extends React.Component {
 
     }
     showEyeImageFunc = () => {
+        this.setState({hair:null,eye:"underline",mouth:null,eyeTextColour:"white", hairTextColour:  "#333333", mouthTextColour:  "#333333"});
        this.setState({showEyeImage: true});
         this.setState({showImage: false});
         this.setState({showMouthImage: false});
@@ -178,6 +184,7 @@ class HomeScreen extends React.Component {
 
     }
     showMouthImageFunc = () => {
+        this.setState({hair:null,eye:null,mouth:"underline",mouthTextColour:"white",hairTextColour: "#333333",eyeTextColour:  "#333333"});
        this.setState({showMouthImage: true});
         this.setState({showEyeImage: false});
         this.setState({showImage: false});
@@ -196,6 +203,7 @@ class HomeScreen extends React.Component {
 
        }
     displayAvatar = () => {
+        this.setState({hair:null,eye:null,mouth:null,hairTextColour: "#333333", eyeTextColour: "#333333", mouthTextColour:  "#333333"});
         this.setState({topImageFinal: this.state.topImage});
         this.setState({midImageFinal: this.state.midImage});
         this.setState({bottomImageFinal: this.state.bottomImage});
@@ -203,6 +211,7 @@ class HomeScreen extends React.Component {
 
     }
     cancelSave = () => {
+        this.setState({hair:null,eye:null,mouth:null,hairTextColour: "#333333", eyeTextColour: "#333333", mouthTextColour:  "#333333"});
         this.setState({topImage: this.state.topImageFinal});
         this.setState({midImage: this.state.midImageFinal});
         this.setState({bottomImage: this.state.bottomImageFinal});
@@ -237,17 +246,16 @@ class HomeScreen extends React.Component {
         />
             
         <BottomSheet onDismiss={() => this.toggleEditState()} visible={editMode} height={modalHeight}>
-    
-            
+ 
         <View style={styles.tabContainer}>
           <TouchableOpacity onPress={()=>this.showImageFunc()}>
-            <Text style={styles.tabText}>Hair</Text>
+            <Text style={{ fontSize: 25, color:this.state.hairTextColour, textDecorationLine: this.state.hair }}>Hair</Text>
           </TouchableOpacity>
             <TouchableOpacity onPress={()=>this.showEyeImageFunc()}>
-            <Text style={styles.tabText}>Eyes</Text>
+             <Text style={{ fontSize: 25, color:this.state.eyeTextColour, textDecorationLine: this.state.eye }}>Eyes</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={()=>this.showMouthImageFunc()}>
-            <Text style={styles.tabText}>Mouth</Text>
+             <Text style={{ fontSize: 25, color:this.state.mouthTextColour, textDecorationLine: this.state.mouth }}>Mouth</Text>
           </TouchableOpacity>
         </View>
             
@@ -325,9 +333,10 @@ class HomeScreen extends React.Component {
                    </TouchableOpacity>
 
                         </View>}
+                   
         </View>
         <View>
-
+           
             <Button
               text="Save"
               onPress={() => this.displayAvatar()}
