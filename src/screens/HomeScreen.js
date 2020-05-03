@@ -156,10 +156,10 @@ class HomeScreen extends React.Component {
     this.setState((prevState) => {
       const newState = !prevState.editMode;
       return {
-      editMode: newState,
-      showImage:false,
-          showEyeImage: false,
-            showMouthImage: false
+        editMode: newState,
+        showImage:false,
+        showEyeImage: false,
+        showMouthImage: false
           
       };
     });
