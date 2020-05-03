@@ -38,7 +38,6 @@ function LessonScreen(props) {
     ];
   const [index, setIndex] = useState(0);
   const current = q_and_a[index];
-  console.log(current);
 
   return (
  
@@ -51,6 +50,17 @@ function LessonScreen(props) {
                                           } else {
                                             Alert.alert("Try again!");
                                           }
+                                           if (index === 9){
+                                            setIndex(0);
+                                            updateBadgeState(
+                                              Constants.LESSON_COMPLETION,
+                                              Constants.LESSON_COMPLETION_1
+                                            );
+                                            updateLessonAndWorldCompletion(Constants.CURRENT_LESSON_PARENT);
+                                            checkAndIssueWorldBadge();
+                                            storeWrapper();
+                                            props.navigation.navigate("Home");
+                                          }
                                         }} 
                                         > {current.answer[0]} </Text>
           <Text style={styles.TextStyle} onPress={() => {
@@ -58,6 +68,17 @@ function LessonScreen(props) {
                                            setIndex(index + 1);
                                           } else {
                                             Alert.alert("Try again!");
+                                          }
+                                           if (index === 9){
+                                            setIndex(0);
+                                            updateBadgeState(
+                                              Constants.LESSON_COMPLETION,
+                                              Constants.LESSON_COMPLETION_1
+                                            );
+                                            updateLessonAndWorldCompletion(Constants.CURRENT_LESSON_PARENT);
+                                            checkAndIssueWorldBadge();
+                                            storeWrapper();
+                                            props.navigation.navigate("Home");
                                           }
                                         }} 
                                         > {current.answer[1]} </Text>
@@ -67,20 +88,24 @@ function LessonScreen(props) {
                                           } else {
                                             Alert.alert("Try again!");
                                           }
+                                          if (index === 9){
+                                           setIndex(0);
+                                            updateBadgeState(
+                                              Constants.LESSON_COMPLETION,
+                                              Constants.LESSON_COMPLETION_1
+                                            );
+                                            updateLessonAndWorldCompletion(Constants.CURRENT_LESSON_PARENT);
+                                            checkAndIssueWorldBadge();
+                                            storeWrapper();
+                                            props.navigation.navigate("Home");
+                                          }
                                         }} 
                                         > {current.answer[2]} </Text>
         </View>
       
       <Button
-        title="Click here to finish lesson (go back to home screen)"
+        title="Click here to exit lesson (go back to home screen)"
         onPress={() => {
-          updateBadgeState(
-            Constants.LESSON_COMPLETION,
-            Constants.LESSON_COMPLETION_1
-          );
-          updateLessonAndWorldCompletion(Constants.CURRENT_LESSON_PARENT);
-          checkAndIssueWorldBadge();
-          storeWrapper();
           props.navigation.navigate("Home");
         }}
       ></Button>
