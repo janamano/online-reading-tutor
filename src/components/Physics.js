@@ -37,6 +37,7 @@ export const addObstacleToGame = (px, py, x, world, entities) => {
 export const collisionCheck = (otherBody, playerBody, dispatch) => {
     let collision = Matter.SAT.collides(otherBody, playerBody);
     if (collision.collided) {
+        sendObstacles = false;
         dispatch({ type: "game-over" });
     }
 }

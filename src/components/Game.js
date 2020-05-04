@@ -22,7 +22,8 @@ export class Game extends Component {
       running: true,
       showModal: false,
       score: 0,
-      lastScore: 0 
+      lastScore: 0,
+      showInstructions: true
     }
   }
 
@@ -119,6 +120,11 @@ export class Game extends Component {
       running: true,
       showModal: false
     });
+    if (this.state.showInstructions) {
+      this.setState({
+        showInstructions: false
+      });
+    }
   }
 
   render() {
@@ -135,6 +141,18 @@ export class Game extends Component {
                 <StatusBar hidden={true} />
             </GameEngine>
             <Text style={styles.score}>{this.state.score}</Text>
+            <Modal animationType = {"slide"} transparent = {true}
+                visible = {this.state.showInstructions} >
+                  <View style={styles.gameOverContainer}>
+                    <Text style={styles.gameOverScoreText}>Tap the platform to Jump and avoid the fire balls</Text>
+                    <Image
+                      source=
+                      {require('../assets/game/sprite.png')}
+                      style={styles.ImageIconStyle}
+                    />
+                    <Button title = "Start Game" onPress= {() => this.reset()} />
+                  </View>
+              </Modal>
             <View>
               <Modal animationType = {"slide"} transparent = {true}
                 visible = {this.state.showModal} >
@@ -186,6 +204,12 @@ backgroundImage: {
     bottom: 0,
     left: 0,
     right: 0
+  },
+  instructions: {
+    position: "absolute",
+
+    width: 300,
+    height: 50
   },
   gameOverText: {
     color: "black",
