@@ -50,10 +50,7 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     marginLeft: 5
   },
-  badgeContainer: {
-    height: 130,
-    marginBottom: 5
-  },
+
   title: {
     fontSize: 18,
     color: "white",
