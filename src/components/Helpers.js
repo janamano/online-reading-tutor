@@ -233,6 +233,15 @@ export const storeData = async () => {
   }
 };
 
+export const getHighScore = () => {
+  return DataObject.Data.gameHighScore;
+}
+
+export const setHighScore = (score) => {
+  if (score > getHighScore()) {
+    DataObject.Data.gameHighScore = score;
+  }
+}
 export const updateStreaksCount = () => {
   let current_timestamp = Date.now() / 1000; // seconds
   let last_logged_in = DataObject.Data.streak.last_logged_in;

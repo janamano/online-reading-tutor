@@ -9,6 +9,7 @@ import Constants from "./Constants.js";
 import Player from "./Player.js";
 import Physics from "./Physics.js";
 import Platform from "./Platform.js";
+import { getHighScore, setHighScore, storeWrapper } from "./Helpers.js"
 
 export class Game extends Component {
   constructor(props) {
@@ -20,7 +21,8 @@ export class Game extends Component {
     this.state = {
       running: true,
       showModal: false,
-      score: 0
+      score: 0,
+      lastScore: 0 
     }
   }
 
@@ -94,6 +96,11 @@ export class Game extends Component {
   onEvent = (e) => {
     if (e.type === "game-over") {
       this.setState({
+        lastScore: this.state.score
+      });
+      setHighScore(this.state.score);
+      storeWrapper();
+      this.setState({
         running: false,
         showModal: true,
         score: 0
@@ -133,7 +140,8 @@ export class Game extends Component {
                 visible = {this.state.showModal} >
                   <View style={styles.gameOverContainer}>
                     <Text style={styles.gameOverText}> Game Over </Text>
-                    <Text style={styles.gameOverScoreText}> Score: {this.state.score} </Text>
+                    <Text style={styles.gameOverScoreText}> Score: {this.state.lastScore} </Text>
+                    <Text style={styles.gameOverScoreText}> High Score: {getHighScore()} </Text>
                     <Image
                       source=
                       {require('../assets/game/sprite.png')}
@@ -181,18 +189,18 @@ backgroundImage: {
   },
   gameOverText: {
     color: "black",
-    fontSize: 48,
-    alignSelf: "center",
-    padding: 10
-  },
-  gameOverScoreText: {
-    color: "black",
-    fontSize: 20,
+    fontSize: 40,
     alignSelf: "center",
     padding: 10,
     textShadowColor: '#444444',
     textShadowOffset: { width: 2, height: 2},
     textShadowRadius: 2,
+  },
+  gameOverScoreText: {
+    color: "black",
+    fontSize: 20,
+    alignSelf: "center",
+    padding: 10
   },
   gameOverSubText: {
     color: "white",
