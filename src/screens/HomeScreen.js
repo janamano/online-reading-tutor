@@ -4,6 +4,7 @@ import {
 } from "react-native";
 
 import Profile from "../components/Profile";
+import Footer from "../components/Footer";
 
 // internal components
 import { Button, BottomSheet } from "../components/index";
@@ -34,16 +35,7 @@ const HomeScreen = (props) => {
       <View style={styles.container}>
        <View>
         <Profile badges={props.badges}/>
-        <View style={{ flexDirection: 'row', position: 'absolute', marginTop: 700, alignItems:'center' }}>
-        <Button
-          text="Lessons"
-          onPress={() => props.navigation.navigate("Lessons")}
-        />
-        <Button
-          text="Badges"
-          onPress={() => props.navigation.navigate("Badges")}
-        />
-        </View>
+        <Footer navigation={props.navigation}/>
         </View>
       </View>
     );

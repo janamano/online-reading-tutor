@@ -4,9 +4,11 @@ import { Text, View, Button, StyleSheet, Image } from "react-native";
 
 // Export displaybadge component
 import DisplayBadge from "../components/DisplayBadge";
+import Footer from "../components/Footer";
 
 // import styles
 import variables from "../styles/variables";
+
 
 // Simplest Case for now:
 // Badge to be "given" upon completion of lesson
@@ -41,7 +43,8 @@ const BadgeScreen = (props) => {
       <Text style={styles.title}>Badge Collection</Text>
 
       <DisplayBadge badges={props.badges} />
-
+      <Footer navigation={props.navigation}/>
+{/*}
       <Button
         title="Click here to go back to home screen"
         onPress={() => {
@@ -55,6 +58,7 @@ const BadgeScreen = (props) => {
           // ...
         }}
       ></Button>
+      */}
     </View>
   );
 };

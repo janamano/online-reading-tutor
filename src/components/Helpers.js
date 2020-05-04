@@ -164,7 +164,8 @@ export const renderWorldBadges = (world_props) => {
         style={{
           width: 100,
           height: 120,
-          margin: 10,
+          marginLeft: 10,
+          marginRight: 10,
           opacity: world_props[i].badgeState ? 1 : 0.5,
         }}
       />
@@ -184,7 +185,8 @@ export const renderStreakImages = (streak_props) => {
         style={{
           width: 100,
           height: 120,
-          margin: 10,
+          marginLeft: 10,
+          marginRight: 10,
           opacity: streak_props[i].badgeState ? 1 : 0.5,
         }}
       />
@@ -205,7 +207,8 @@ export const renderLessonImages = (lesson_props) => {
         style={{
           width: 100,
           height: 120,
-          margin: 10,
+          marginLeft: 10,
+          marginRight: 10,
           opacity: lesson_props[i].badgeState ? 1 : 0.5,
         }}
       />
