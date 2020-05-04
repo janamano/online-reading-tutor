@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {
-  StyleSheet, StatusBar, Text, View, Image, Button, Alert
+  StyleSheet, StatusBar, Text, View, Image, Button, TouchableHighlight
 } from "react-native";
 import Modal from "react-native-modal";
 import { GameEngine } from "react-native-game-engine";
@@ -99,10 +99,7 @@ export class Game extends Component {
       this.setState({
         lastScore: this.state.score
       });
-      let highScoreBeat = setHighScore(this.state.score);
-      if (highScoreBeat) {
-        storeWrapper();
-      }
+      setHighScore(this.state.score);
       this.setState({
         running: false,
         showModal: true,
