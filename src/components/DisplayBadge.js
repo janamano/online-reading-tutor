@@ -48,13 +48,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "black",
-    marginLeft: 5
+    marginLeft: 5,
+    paddingVertical: 10,
+    marginBottom: 100
   },
 
   title: {
     fontSize: 18,
     color: "white",
     marginLeft: 10,
-    marginBottom: 5
+    marginBottom: 10
   },
 });
