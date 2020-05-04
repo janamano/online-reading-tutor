@@ -7,11 +7,12 @@ import {
   TouchableOpacity,
   SafeAreaView, Dimensions} from 'react-native';
 
-import WorldsConstants from './WorldsConstants'
 import Carousel from 'react-native-snap-carousel';
 // local components
-import Button from "./../components/Button"
-
+import Button from './Button'
+import WorldsConstants from './WorldsConstants'
+import variables from '../styles/variables'
+import BottomSheet from "./index"
 
 
 export default class CarouselCards extends React.Component  {
@@ -21,7 +22,8 @@ export default class CarouselCards extends React.Component  {
         this.goToFire = this.goToFire.bind(this);
         this.state = {
           activeIndex:0,
-          carouselItems: WorldsConstants.WORLDS
+          carouselItems: WorldsConstants.WORLDS,
+          showModal: false,
       }
     }
 
@@ -70,10 +72,10 @@ export default class CarouselCards extends React.Component  {
               <View>
                   <TouchableOpacity
                     style = {styles.button}
-                    color="#FFFFFF"
+                    color="#65269c"
                     disabled={!item.unlocked}
                     onPress= {() =>  this.goToFire()}>
-                      <Text>{"Explore " + item.title}</Text>
+                      <Text>Explore this world</Text>
                   </TouchableOpacity>
               </View>
           </View>
@@ -82,26 +84,30 @@ export default class CarouselCards extends React.Component  {
 
     render() {
         return (
-            <SafeAreaView style={{flex: 1, backgroundColor:'#967ECB', paddingTop: 50, paddingBottom:100}}>
-              <View style={{ flex: 1, flexDirection:'row', justifyContent: 'center', }}>
-                <Carousel
-                  layout={"default"}
-                  ref={ref => this.carousel = ref}
-                  data={this.state.carouselItems}
-                  sliderWidth={300}
-                  itemWidth={300}
-                  renderItem={this._renderItem.bind(this)}
-                  onSnapToItem = { index => this.setState({activeIndex:index}) } />
+          <SafeAreaView style={{flex: 1, backgroundColor:'#967ECB', paddingTop: 50, paddingBottom:100}}>
+            <View style={{ flex: 1, flexDirection:'row', justifyContent: 'center', }}>
+              <Carousel
+                layout={"default"}
+                ref={ref => this.carousel = ref}
+                data={this.state.carouselItems}
+                sliderWidth={300}
+                itemWidth={300}
+                renderItem={this._renderItem.bind(this)}
+                onSnapToItem = { index => this.setState({activeIndex:index}) }
+                removeClippedSubviews={false} />
             </View>
           </SafeAreaView>
         );
     }
+
     goToFire = () => {
       this.props.navigation.navigate('Game')
       this.setState({
         showModal: false
       });
     }
+
+
 }
 
 const styles = StyleSheet.create({

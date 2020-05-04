@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { StyleSheet,Text, View, Button } from 'react-native';
+import { StyleSheet,Text, View, Button, Dimensions } from 'react-native';
 import CarouselCards from '../components/Carousel.js';
 import WorldsConstants from '../components/WorldsConstants'
-
+import { BottomSheet } from "../components/index";
 
 
 const styles = StyleSheet.create({
@@ -27,10 +27,16 @@ const styles = StyleSheet.create({
     },
 });
 function LessonMapScreen({ navigation }) {
+
     return (
         <View style= { styles.container }>
                 <View>
                     <CarouselCards navigation = {navigation}/>
+                    <BottomSheet
+                      visible={!true}
+                      height={(Dimensions.get("screen").height / 3)}>
+                        <Text>Modal Child</Text>
+                    </BottomSheet>
 
                 </View>
         </View>
