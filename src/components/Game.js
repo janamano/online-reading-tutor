@@ -9,6 +9,7 @@ import Constants from "./Constants.js";
 import Player from "./Player.js";
 import Physics from "./Physics.js";
 import Platform from "./Platform.js";
+import { getHighScore, setHighScore, storeWrapper } from "./Helpers.js"
 
 export class Game extends Component {
   constructor(props) {
@@ -20,7 +21,9 @@ export class Game extends Component {
     this.state = {
       running: true,
       showModal: false,
-      score: 0
+      score: 0,
+      lastScore: 0,
+      showInstructions: true
     }
   }
 
@@ -94,6 +97,13 @@ export class Game extends Component {
   onEvent = (e) => {
     if (e.type === "game-over") {
       this.setState({
+        lastScore: this.state.score
+      });
+      let highScoreBeat = setHighScore(this.state.score);
+      if (highScoreBeat) {
+        storeWrapper();
+      }
+      this.setState({
         running: false,
         showModal: true,
         score: 0
@@ -112,6 +122,11 @@ export class Game extends Component {
       running: true,
       showModal: false
     });
+    if (this.state.showInstructions) {
+      this.setState({
+        showInstructions: false
+      });
+    }
   }
 
   render() {
@@ -128,12 +143,25 @@ export class Game extends Component {
                 <StatusBar hidden={true} />
             </GameEngine>
             <Text style={styles.score}>{this.state.score}</Text>
+            <Modal animationType = {"slide"} transparent = {true}
+                visible = {this.state.showInstructions} >
+                  <View style={styles.gameOverContainer}>
+                    <Text style={styles.gameOverScoreText}>Tap the platform to Jump and avoid the fire balls</Text>
+                    <Image
+                      source=
+                      {require('../assets/game/sprite.png')}
+                      style={styles.ImageIconStyle}
+                    />
+                    <Button title = "Start Game" onPress= {() => this.reset()} />
+                  </View>
+              </Modal>
             <View>
               <Modal animationType = {"slide"} transparent = {true}
                 visible = {this.state.showModal} >
                   <View style={styles.gameOverContainer}>
                     <Text style={styles.gameOverText}> Game Over </Text>
-                    <Text style={styles.gameOverScoreText}> Score: {this.state.score} </Text>
+                    <Text style={styles.gameOverScoreText}> Score: {this.state.lastScore} </Text>
+                    <Text style={styles.gameOverScoreText}> High Score: {getHighScore()} </Text>
                     <Image
                       source=
                       {require('../assets/game/sprite.png')}
@@ -179,20 +207,26 @@ backgroundImage: {
     left: 0,
     right: 0
   },
+  instructions: {
+    position: "absolute",
+
+    width: 300,
+    height: 50
+  },
   gameOverText: {
     color: "black",
-    fontSize: 48,
-    alignSelf: "center",
-    padding: 10
-  },
-  gameOverScoreText: {
-    color: "black",
-    fontSize: 20,
+    fontSize: 40,
     alignSelf: "center",
     padding: 10,
     textShadowColor: '#444444',
     textShadowOffset: { width: 2, height: 2},
     textShadowRadius: 2,
+  },
+  gameOverScoreText: {
+    color: "black",
+    fontSize: 20,
+    alignSelf: "center",
+    padding: 10
   },
   gameOverSubText: {
     color: "white",

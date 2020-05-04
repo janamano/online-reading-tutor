@@ -4,8 +4,7 @@ import Obstacle from './Obstacle.js';
 
 let obstacles = 0;
 let timer = 0;
-let frameCount = 0;
-let currentFrame = 1;
+let sendObstacles = false
 
 
 
@@ -38,6 +37,7 @@ export const addObstacleToGame = (px, py, x, world, entities) => {
 export const collisionCheck = (otherBody, playerBody, dispatch) => {
     let collision = Matter.SAT.collides(otherBody, playerBody);
     if (collision.collided) {
+        sendObstacles = false;
         dispatch({ type: "game-over" });
     }
 }
@@ -92,6 +92,7 @@ const Physics = (entities, { touches, time, dispatch }) => {
     touches.filter(t => t.type === "press").forEach(t => {
         if (!firstPress) {
             world.gravity.y = 1.2;
+            sendObstacles = true
         }
         Matter.Body.setVelocity(player, {x: player.velocity.x, y: -10 });
     });
@@ -101,7 +102,9 @@ const Physics = (entities, { touches, time, dispatch }) => {
  
     if (timer >= 110) {
         timer = 0;
-        addObstacleToGame(player.position.x, player.position.y, (Constants.MAX_WIDTH), world, entities);        
+        if (sendObstacles) {
+            addObstacleToGame(player.position.x, player.position.y, (Constants.MAX_WIDTH), world, entities);
+        }
     } else {
         timer += 1;
     }
