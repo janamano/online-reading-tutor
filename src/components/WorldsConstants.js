@@ -1,7 +1,8 @@
-import * as DataObject from "./NewConstants";
+import * as DataObject from "./Database";
+import variables from '../styles/variables';
 
 export default WorldsConstants = {
-  WORLDS_BG_COLOR: '#967ECB',
+  WORLDS_BG_COLOR: variables.palette.gray.light,
 
 
   WORLDS: [

@@ -26,11 +26,7 @@ const styles = StyleSheet.create({
 function MinigameScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <ImageBackground style={styles.backgroundImage} source={require("../assets/game_menu.png")}>
-        <View>
-          <Game navigation={navigation} />
-        </View>
-      </ImageBackground>
+      <Game navigation={navigation} />
     </View>
 
   );

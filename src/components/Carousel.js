@@ -9,11 +9,13 @@ import {
 
 import Carousel from 'react-native-snap-carousel';
 // local components
-import Button from './Button'
+import Constants from './Constants';
 import WorldsConstants from './WorldsConstants'
 import variables from '../styles/variables'
-import BottomSheet from "./index"
 
+import { Button, BottomSheet } from "./index";
+import * as DataObject from "./Database";
+import { setCurrentLessonParentWorld } from "./Helpers";
 
 export default class CarouselCards extends React.Component  {
 
@@ -69,13 +71,16 @@ export default class CarouselCards extends React.Component  {
                   {item.text}
                 </Text>
               </View>
-              <View>
+              <View style={{ height: Dimensions.get('window').height *0.2}}>
                   <TouchableOpacity
-                    style = {styles.button}
+                    style = {[styles.button,
+                              item.unlocked ? styles.button_clickable : styles.button_unclickable]}
                     color="#65269c"
                     disabled={!item.unlocked}
                     onPress= {() =>  this.goToFire()}>
-                      <Text>Explore this world</Text>
+                      <Text style={{ color: 'white' }}>
+                        {item.unlocked ? "Explore The "+ item.title : "World Locked"}
+                      </Text>
                   </TouchableOpacity>
               </View>
           </View>
@@ -84,7 +89,7 @@ export default class CarouselCards extends React.Component  {
 
     render() {
         return (
-          <SafeAreaView style={{flex: 1, backgroundColor:'#967ECB', paddingTop: 50, paddingBottom:100}}>
+          <SafeAreaView style={{flex: 1, backgroundColor:WorldsConstants.WORLDS_BG_COLOR, paddingTop: 50, paddingBottom:100}}>
             <View style={{ flex: 1, flexDirection:'row', justifyContent: 'center', }}>
               <Carousel
                 layout={"default"}
@@ -117,10 +122,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10
   },
   button: {
-    marginTop: Dimensions.get('window').height * 0.1,
+    marginTop: Dimensions.get('window').height * 0.03,
     alignItems: "center",
-    backgroundColor: "#DDDDDD",
-    padding: 10
+    width: "100%",
+    padding: 10,
+    borderRadius: 40,
+    borderWidth: 1
+  },
+  button_clickable: {
+    backgroundColor: variables.palette.blue.primary,
+  },
+  button_unclickable: {
+    backgroundColor: '#888888',
   },
   countContainer: {
     alignItems: "center",

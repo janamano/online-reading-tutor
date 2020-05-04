@@ -1,3 +1,5 @@
+const path = require('path');
+
 // eslint-disable-next-line func-names
 module.exports = function (api) {
   api.cache(true);

@@ -19,17 +19,18 @@ export class Game extends Component {
 
     this.state = {
       running: true,
-      showModal: false
-    };
+      showModal: false,
+      score: 0
+    }
   }
 
   setupWorld = () => {
     const engine = Matter.Engine.create({ enableSleeping: false });
-    const { world } = engine;
-
+    const world = engine.world;
+    world.gravity.y = 0.0;
     // player and platform
-    const player = Matter.Bodies.rectangle(0, Constants.MAX_HEIGHT / 2, 50, 50);
-    const platform1 = Matter.Bodies.rectangle(
+    let player = Matter.Bodies.rectangle(-Constants.MAX_WIDTH / 5, Constants.MAX_HEIGHT / 2, 60*(Constants.RATIO), 60); 
+    let platform1 = Matter.Bodies.rectangle(
       0,
       Constants.MAX_HEIGHT - 150,
       Constants.MAX_WIDTH + 4,
@@ -44,38 +45,44 @@ export class Game extends Component {
       50,
       { isStatic: true }
     );
+    
+    // platform 3 and 4 are ceiling
+    let platform3 = Matter.Bodies.rectangle(
+      0,
+      Constants.MAX_HEIGHT / 100,
+      Constants.MAX_WIDTH + 4,
+      50,
+      { isStatic: true }
+    );
 
-    Matter.World.add(world, [player, platform1, platform2]);
+    const platform4 = Matter.Bodies.rectangle(
+      Constants.MAX_WIDTH,
+      Constants.MAX_HEIGHT / 100,
+      Constants.MAX_WIDTH + 4,
+      50,
+      { isStatic: true }
+    );
 
+    Matter.World.add(world, [player, platform1, platform2, platform3, platform4]);
+    
+    // touch anything you die
+    // Matter.Events.on(engine, 'collisionStart', (event) => {
+    //   var pairs = event.pairs;
+
+    //   this.gameEngine.dispatch({ type: "game-over"});
+
+    // });
 
     return {
-      physics: { engine, world },
-      player: {
-        body: player, size: [50, 50], color: "blue", renderer: Player
-      },
-      platform1: { body: platform1, size: [Constants.MAX_WIDTH + 4, 50], renderer: Platform },
-      platform2: { body: platform2, size: [Constants.MAX_WIDTH + 4, 50], renderer: Platform }
+      physics: { engine: engine, world: world },
+      player: { body: player, renderer: Player },
+      platform1: { body: platform1, renderer: Platform },
+      platform2: { body: platform2, renderer: Platform },
+      platform3: { body: platform3, renderer: Platform },
+      platform4: { body: platform4, renderer: Platform }
 
     };
   }
-
-  /*
-  showAlert() {
-    const {navigation, position} = this.props
-
-
-    Alert.alert(
-      'Game Over',
-        '',
-        [
-          {text: 'Retart', onPress: () => this.reset()},
-          {text: 'Exit', onPress: () => this.goToHome()},
-        ]
-      );
-
-    }
-
-*/
 
   goToHome = () => {
     this.props.navigation.navigate("Home");
@@ -88,9 +95,14 @@ export class Game extends Component {
     if (e.type === "game-over") {
       this.setState({
         running: false,
-        showModal: true
+        showModal: true,
+        score: 0
       });
-      // this.showAlert()
+      //this.showAlert()
+    } else if (e.type === "scored") {
+      this.setState({
+        score: this.state.score + 1
+      });
     }
   }
 
@@ -104,37 +116,35 @@ export class Game extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        {/* <Image style={styles.backgroundImage} resizeMode="stretch" source={require("../assets/game_menu.png")} /> */}
-        <GameEngine
-          ref={(ref) => { this.gameEngine = ref; }}
-          style={styles.gameContainer}
-          systems={[Physics]}
-          running={this.state.running}
-          onEvent={this.onEvent}
-          entities={this.entities}
-        >
-          <StatusBar hidden />
-        </GameEngine>
-
-        <View>
-          <Modal
-            animationType="slide"
-            transparent
-            visible={this.state.showModal}
-          >
-            <View style={styles.gameOverContainer}>
-              <Text style={styles.gameOverText}> Game Over </Text>
-              <Image
-                source={require("../assets/baby_dragon.png")}
-                style={styles.ImageIconStyle}
-              />
-              <Button title="Retart" onPress={() => this.reset()} />
-              <Button title="Exit" onPress={() => this.goToHome()} />
-            </View>
-          </Modal>
+        <View style={styles.container}>
+            <Image style={styles.backgroundImage} resizeMode="stretch" source={require("../assets/game/background.png")} />
+            <GameEngine
+                ref={(ref) => { this.gameEngine = ref; }}
+                style={styles.gameContainer}
+                systems={[Physics]}
+                running={this.state.running}
+                onEvent={this.onEvent}
+                entities={this.entities}>
+                <StatusBar hidden={true} />
+            </GameEngine>
+            <Text style={styles.score}>{this.state.score}</Text>
+            <View>
+              <Modal animationType = {"slide"} transparent = {true}
+                visible = {this.state.showModal} >
+                  <View style={styles.gameOverContainer}>
+                    <Text style={styles.gameOverText}> Game Over </Text>
+                    <Text style={styles.gameOverScoreText}> Score: {this.state.score} </Text>
+                    <Image
+                      source=
+                      {require('../assets/game/sprite.png')}
+                      style={styles.ImageIconStyle}
+                    />
+                    <Button title = "Restart" onPress= {() => this.reset()} />
+                    <Button title = "Exit" onPress= {() => this.goToHome()} />
+                  </View>
+              </Modal>
+          </View>
         </View>
-      </View>
     );
   }
 }
@@ -142,10 +152,20 @@ export class Game extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#000"
-  },
-  backgroundImage: {
-    position: "absolute",
+    backgroundColor: '#000',
+},
+score: {
+  position: 'absolute',
+  color: 'white',
+  fontSize: 72,
+  top: 50,
+  left: -20,
+  textShadowColor: '#444444',
+  textShadowOffset: { width: 2, height: 2},
+  textShadowRadius: 2,
+},
+backgroundImage: {
+    position: 'absolute',
     // top:  0,
     // bottom: 0,
     left: -Constants.MAX_WIDTH / 2,
@@ -165,6 +185,15 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     padding: 10
   },
+  gameOverScoreText: {
+    color: "black",
+    fontSize: 20,
+    alignSelf: "center",
+    padding: 10,
+    textShadowColor: '#444444',
+    textShadowOffset: { width: 2, height: 2},
+    textShadowRadius: 2,
+  },
   gameOverSubText: {
     color: "white",
     fontSize: 24
@@ -178,8 +207,8 @@ const styles = StyleSheet.create({
     flex: 0.5
   },
   ImageIconStyle: {
-    width: 200,
-    height: 200,
+    width: 250,
+    height: 140,
     alignSelf: "center",
     margin: 25
   }
