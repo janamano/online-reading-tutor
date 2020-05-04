@@ -240,7 +240,9 @@ export const getHighScore = () => {
 export const setHighScore = (score) => {
   if (score > getHighScore()) {
     DataObject.Data.gameHighScore = score;
+    return true;
   }
+  return false;
 }
 export const updateStreaksCount = () => {
   let current_timestamp = Date.now() / 1000; // seconds

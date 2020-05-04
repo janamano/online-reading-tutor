@@ -99,8 +99,10 @@ export class Game extends Component {
       this.setState({
         lastScore: this.state.score
       });
-      setHighScore(this.state.score);
-      storeWrapper();
+      let highScoreBeat = setHighScore(this.state.score);
+      if (highScoreBeat) {
+        storeWrapper();
+      }
       this.setState({
         running: false,
         showModal: true,
