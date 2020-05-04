@@ -4,7 +4,7 @@
   "streak": { "last_logged_in": "xxx", "streak_count": "-1" },
   "gameHighScore": 0,
   "BADGES": [
-    [ 
+    [
       {
         "badgeID": 1,
         "badgeName": "Lesson 1 Completed",
@@ -78,10 +78,30 @@
     ]
   ],
   "lesson_completion_per_world": {
-    "fire_world": { "lessons_completed": 0, "world_completed": false },
-    "ice_world": { "lessons_completed": 0, "world_completed": false },
-    "water_world": { "lessons_completed": 0, "world_completed": false },
-    "jungle_world": { "lessons_completed": 0, "world_completed": false },
-    "alien_world": { "lessons_completed": 0, "world_completed": false}
+    "fire_world": {
+       "lessons_completed": 0,
+       "world_completed": false,
+       "world_unlocked": true
+    },
+    "ice_world": {
+       "lessons_completed": 0,
+       "world_completed": false,
+       "world_unlocked": false
+    },
+    "water_world": {
+       "lessons_completed": 0,
+       "world_completed": false,
+       "world_unlocked": false
+    },
+    "jungle_world": {
+       "lessons_completed": 0,
+       "world_completed": false,
+       "world_unlocked": false
+    },
+    "alien_world": {
+       "lessons_completed": 0,
+       "world_completed": false,
+       "world_unlocked": false
+    }
   }
 }

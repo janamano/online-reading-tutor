@@ -2,98 +2,141 @@ import * as React from "react";
 import {
   Text,
   View,
-  SafeAreaView, Dimensions
-} from "react-native";
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  SafeAreaView, Dimensions} from 'react-native';
 
-import Carousel from "react-native-snap-carousel";
+import Carousel from 'react-native-snap-carousel';
 // local components
-import { Button } from "./index";
+import Constants from './Constants';
+import WorldsConstants from './WorldsConstants'
+import variables from '../styles/variables'
+
+import { Button, BottomSheet } from "./index";
 import * as DataObject from "./Database";
 import { setCurrentLessonParentWorld } from "./Helpers";
-import Constants from './Constants';
 
-export default class CarouselCards extends React.Component {
-  constructor(props) {
-    super(props);
-    this.goToFire = this.goToFire.bind(this);
-    this.state = {
-      activeIndex: 0,
-      carouselItems: [
-        {
-          title: "Fire World",
-          text: DataObject.Data.lesson_completion_per_world.fire_world["lessons_completed"] + "/" + Constants.TOTAL_LESSONS, // TODO: change to state of lessons completion
-          index: 1, // TODO: use this to navigate to the right game for each world
-          short_key: Constants.FIRE_WORLD_KEY
-        },
-        {
-          title: "Ice World",
-          text: DataObject.Data.lesson_completion_per_world.ice_world["lessons_completed"] + "/" + Constants.TOTAL_LESSONS, // TODO: change to state of lessons completion
-          index: 2,
-          short_key: Constants.ICE_WORLD_KEY
-        },
-        {
-          title: "Jungle World",
-          text: DataObject.Data.lesson_completion_per_world.jungle_world["lessons_completed"] + "/" + Constants.TOTAL_LESSONS, // TODO: change to state of lessons completion
-          index: 3,
-          short_key: Constants.JUNGLE_WORLD_KEY
-        },
-        {
-          title: "Alien World",
-          text: DataObject.Data.lesson_completion_per_world.alien_world["lessons_completed"] + "/" + Constants.TOTAL_LESSONS, // TODO: change to state of lessons completion
-          index: 4,
-          short_key: Constants.ALIEN_WORLD_KEY
-        }
-      ]
-    };
-  }
+export default class CarouselCards extends React.Component  {
 
-  _renderItem({ item, index }) {
-    //        const { navigate } = this.props.navigation.navigate(Game);
-    return (
-      <View style={{
-        backgroundColor: "rebeccapurple",
-        borderRadius: 5,
-        height: Dimensions.get("window").height * 0.4,
-        padding: 50,
-        marginLeft: 25,
-        marginRight: 25,
-        marginTop: Dimensions.get("window").height * 0.15
-      }}
-      >
-        <Text style={{ fontSize: 30 }}>{item.title}</Text>
-        <Text>{item.text}</Text>
-      </View>
-    );
-  }
+    constructor(props){
+        super(props);
+        this.goToFire = this.goToFire.bind(this);
+        this.state = {
+          activeIndex:0,
+          carouselItems: WorldsConstants.WORLDS,
+          showModal: false,
+      }
+    }
 
-  goToFire = () => {
-    setCurrentLessonParentWorld(this.state.carouselItems[this.state.activeIndex].short_key);
-    this.props.navigation.navigate("Game");
-    this.setState({
-      showModal: false
-    });
-  }
+    _renderItem({item,index}){
+//        const { navigate } = this.props.navigation.navigate(Game);
 
-  render() {
-    return (
-      <SafeAreaView style={{
-        flex: 1, backgroundColor: "black", paddingTop: 50, paddingBottom: 100
-      }}
-      >
-        <View style={{ flex: 1, flexDirection: "row", justifyContent: "center" }}>
-          <Carousel
-            layout="default"
-            ref={(ref) => this.carousel = ref}
-            data={this.state.carouselItems}
-            sliderWidth={300}
-            itemWidth={300}
-            renderItem={this._renderItem}
-            onSnapToItem={(index) => this.setState({ activeIndex: index })}
-          />
+        return (
+          <View style={{
+              backgroundColor: WorldsConstants.WORLDS_BG_COLOR,
+              borderRadius: 5,
+              height: Dimensions.get('window').height,
+              // justifyContent: 'center',
+              alignItems: 'center',
 
-        </View>
-        <Button text="Start" onPress={() => this.goToFire()} />
-      </SafeAreaView>
-    );
-  }
+          }}>
+              <View style={{
+                  height: Dimensions.get('window').height *0.5,
+                  marginTop:  Dimensions.get('window').height *0.10,
+              }}>
+                  <Image
+                    key={item.title}
+                    source={item.icon}
+                    style={{
+                      flex: 1,
+                      resizeMode: 'contain',
+                    }}
+                  />
+              </View>
+              <View style={{
+                alignItems: 'center',
+                marginTop: 30,
+                justifyContent: 'center',
+                textAlignVertical: 'bottom'}}>
+                <Text style={{
+                  fontSize: 30,
+                  color: 'white',
+                }}>
+                  {item.title}
+                </Text>
+                <Text style={{
+                  color: 'white',
+                }}>
+                  {item.text}
+                </Text>
+              </View>
+              <View style={{ height: Dimensions.get('window').height *0.2}}>
+                  <TouchableOpacity
+                    style = {[styles.button,
+                              item.unlocked ? styles.button_clickable : styles.button_unclickable]}
+                    color="#65269c"
+                    disabled={!item.unlocked}
+                    onPress= {() =>  this.goToFire()}>
+                      <Text style={{ color: 'white' }}>
+                        {item.unlocked ? "Explore The "+ item.title : "World Locked"}
+                      </Text>
+                  </TouchableOpacity>
+              </View>
+          </View>
+        );
+    }
+
+    render() {
+        return (
+          <SafeAreaView style={{flex: 1, backgroundColor:WorldsConstants.WORLDS_BG_COLOR, paddingTop: 50, paddingBottom:100}}>
+            <View style={{ flex: 1, flexDirection:'row', justifyContent: 'center', }}>
+              <Carousel
+                layout={"default"}
+                ref={ref => this.carousel = ref}
+                data={this.state.carouselItems}
+                sliderWidth={300}
+                itemWidth={300}
+                renderItem={this._renderItem.bind(this)}
+                onSnapToItem = { index => this.setState({activeIndex:index}) }
+                removeClippedSubviews={false} />
+            </View>
+          </SafeAreaView>
+        );
+    }
+
+    goToFire = () => {
+      this.props.navigation.navigate('Game')
+      this.setState({
+        showModal: false
+      });
+    }
+
+
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    paddingHorizontal: 10
+  },
+  button: {
+    marginTop: Dimensions.get('window').height * 0.03,
+    alignItems: "center",
+    width: "100%",
+    padding: 10,
+    borderRadius: 40,
+    borderWidth: 1
+  },
+  button_clickable: {
+    backgroundColor: variables.palette.blue.primary,
+  },
+  button_unclickable: {
+    backgroundColor: '#888888',
+  },
+  countContainer: {
+    alignItems: "center",
+    padding: 10
+  }
+});
