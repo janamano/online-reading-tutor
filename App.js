@@ -59,7 +59,7 @@ function App() {
         </Stack.Screen>
         <Stack.Screen
           name="Minigame"
-          options={{ title: "Minigame Simulation" }}
+          options={{ title: "Fire Game" }}
           component={MinigameScreen}
         />
         <Stack.Screen name="Badges">

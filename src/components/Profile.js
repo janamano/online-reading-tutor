@@ -145,7 +145,7 @@ export default class Profile extends React.Component {
                             <Button title="" onPress={() => this.toggleEditState()} />
                         </View>
                     </View>
-                    <Text style={styles.nameText}> John Doe </Text>
+                    <Text style={styles.nameText}> Angus </Text>
                     <View style={styles.streakdisplay}>
                         <View style={styles.streakContainer}>
 
